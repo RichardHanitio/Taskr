@@ -1,0 +1,23 @@
+@import "../../../config";
+
+.btn {
+  border : none;
+  border-radius : 5px;
+  color : white;
+  font-size : 16px;
+  font-weight : 500;
+  box-shadow : 0 2px 5px primary-color("turquoise", "700"); 
+  &:hover {
+    cursor : pointer;
+  }
+}
+
+.btn-primary {
+  background-color : primary-color("turquoise", "600");
+  &:hover {
+    background-color : primary-color("turquoise", "700");
+  }
+  &:active {
+    background-color : primary-color("turquoise", "800");
+  }
+}

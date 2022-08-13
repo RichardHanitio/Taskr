@@ -1,0 +1,37 @@
+@import "./config";
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+*,
+*::before,
+*::after{
+  font-family: 'Roboto', sans-serif;
+  margin : 0;
+  padding : 0;
+  box-sizing : border-box;
+}
+
+li {
+  list-style-type : none;
+}
+
+h1 {
+  font-size : 20px;
+}
+
+.app{
+  background-image : radial-gradient(at top left, map-get($clr-primary, "green") 0%, map-get($clr-primary, "blue") 70%); 
+  min-width : 100vw;
+  min-height : 100vh;
+  position : relative;
+  display : flex;
+  align-items : center;
+  justify-content : center;
+
+  .app-container {
+    @include displayFlex(column, $align:center);
+    height : 95vh;
+    min-width : 38vw;
+
+  }
+}
+

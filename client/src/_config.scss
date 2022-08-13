@@ -1,0 +1,53 @@
+// colors
+$clr-primary : (
+  "turquoise" : (
+    "500" : #3FE0D0,
+    "600" : #2EC0BF,
+    "700" : #2096A0,
+    "800" : #136E81
+  ),
+  "blue" : #40A0E0,
+  "green" : #40E080
+);
+
+$clr-accent : (
+  "danger" : (
+    "500" : #FF5635
+  ),
+  "warning" : (
+    "500" : #FFD800
+  ),
+  "info" : (
+    "500" : #1485FF
+  ),
+  "success" : (
+    "500" : #8FCE1B
+  )
+);
+
+
+// breakpoints
+$breakpoints : (
+  "xxl" : 1400px,
+  "xl" : 1200px,
+  "lg" : 992px,
+  "md" : 768px,
+  "sm" : 576px,
+);
+
+// functions & mixins
+@function primary-color($name, $value) {
+  @return map-get($clr-primary, $name, $value);
+}
+
+@function accent-color($name, $value) {
+  @return map-get($clr-accent, $name, $value);
+}
+
+@mixin displayFlex($direction: row, $justify: flex-start, $align:flex-start) {
+  display : flex;
+  flex-direction : $direction;
+  justify-content : $justify;
+  align-items : $align;
+}
+  

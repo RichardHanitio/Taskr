@@ -1,0 +1,37 @@
+@import "../../config";
+
+.tasks {
+  @include displayFlex(row, center, flex-end);
+  min-height : calc(95vh - 350px - 25px);
+  width : 580px;
+
+  .no-task {
+    @include displayFlex(row, center, center);
+    height : 100%;
+    font-size : 20px;
+    color : white;
+    // display : none;
+  }
+  
+  .tasks-container {
+    flex-grow : 1;
+    height : 100%;
+    
+    .tasks-recent {
+      color : white;
+      font-size : 14px;
+      height : 30px;
+    }
+
+    .tasks-inner-container {
+      height : calc(100% - 30px);
+      overflow : auto;
+      -ms-overflow-style: none;  /* Internet Explorer 10+ */
+      scrollbar-width: none;  /* Firefox */
+      &::-webkit-scrollbar {
+        display : none;
+      }
+    }
+  }
+
+}

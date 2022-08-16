@@ -1,29 +1,37 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import "./form.scss";
 import Button from "../common/Button/Button";
 import { httpCreateTask } from "../../hooks/requests";
+import PopUp from "../common/PopUp/PopUp";
 
 const Form = () => {
   const [task, setTask] = useState({});
+  const [isOpen, setIsOpen] = useState(false);
+
+  const closeModal = () => {
+    setIsOpen(false);
+    window.location.reload();
+  }
 
   const submitDataToAPI = useCallback(async(data) => {
     await httpCreateTask(data)
-      .then((resp) => setTask(resp))
+      .then((resp) => {
+        setTask(resp)
+        setIsOpen(true);
+      })
       .catch((err) => console.log(err.printStackTrace));
   }, [])
 
-  const handleFormOnSubmit = async (e) => {
+  const handleFormOnSubmit = (e) => {
     e.preventDefault();
     const data = new FormData(e.target);
     const task = data.get("task");
     const desc = data.get("description");
-    const dueDate = new Date(data.get("dueDate"));
+    const dueDate = new Date(data.get("due-date"));
     const priority = data.get("priority");
 
     const dataObj = { task, desc, dueDate, priority };
     submitDataToAPI(dataObj);
-    
-    e.target.reset();
   };
 
   return (
@@ -68,6 +76,9 @@ const Form = () => {
           <Button variant="primary" type="submit" height="30px">
             Create Task
           </Button>
+          <PopUp open={isOpen} close={closeModal} image="/assets/man-with-calendar.png">
+            Task successfully created!
+          </PopUp>
         </div>
       </form>
     </div>

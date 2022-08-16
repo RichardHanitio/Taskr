@@ -3,7 +3,7 @@
 .task {
   @include displayFlex(row, center, center);
   background-color : white;
-  height : 50px;
+  height : 60px;
   box-shadow : 0px 2px 10px primary-color("turquoise", "800");
   margin-bottom : 10px;
 
@@ -17,7 +17,7 @@
       @include displayFlex($justify:center);
 
       .priority-dot {
-        font-size : 30px;
+        font-size : 40px;
         
         &-danger {
           color : accent-color("danger", "500");
@@ -39,12 +39,12 @@
 
       .task-name {
         font-weight : 500;
-        font-size : 14px;
+        font-size : 16px;
         margin-bottom : 5px;
       }
 
       .task-due {
-        font-size : 10px;
+        font-size : 12px;
         opacity : .5;
         font-weight : 500;
       }

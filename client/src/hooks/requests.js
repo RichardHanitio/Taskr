@@ -17,6 +17,14 @@ const httpCreateTask = async(task) => {
   }
 }
 
+const httpDeleteTask = async(taskID) => {
+  try {
+    return await axios.delete(`${API_URL}/tasks/${taskID}`);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 export {
-  httpGetTasks, httpCreateTask
+  httpGetTasks, httpCreateTask, httpDeleteTask
 }

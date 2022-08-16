@@ -1,45 +1,18 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useContext } from "react";
 import "./form.scss";
 import Button from "../common/Button/Button";
-import { httpCreateTask } from "../../hooks/requests";
 import PopUp from "../common/PopUp/PopUp";
+import {ModalContext} from "../../routes/NewTask/NewTask";
 
-const Form = () => {
-  const [task, setTask] = useState({});
-  const [isOpen, setIsOpen] = useState(false);
-
-  const closeModal = () => {
-    setIsOpen(false);
-    window.location.reload();
-  }
-
-  const submitDataToAPI = useCallback(async(data) => {
-    await httpCreateTask(data)
-      .then((resp) => {
-        setTask(resp)
-        setIsOpen(true);
-      })
-      .catch((err) => console.log(err.printStackTrace));
-  }, [])
-
-  const handleFormOnSubmit = (e) => {
-    e.preventDefault();
-    const data = new FormData(e.target);
-    const task = data.get("task");
-    const desc = data.get("description");
-    const dueDate = new Date(data.get("due-date"));
-    const priority = data.get("priority");
-
-    const dataObj = { task, desc, dueDate, priority };
-    submitDataToAPI(dataObj);
-  };
+const Form = ({createTask}) => {
+  const {modalIsOpen, closeModal} = useContext(ModalContext);
 
   return (
     <div className="form">
       <form
         className="form-container"
         method="post"
-        onSubmit={handleFormOnSubmit}
+        onSubmit={createTask}
       >
         <h1 className="form-title">New Task</h1>
         <div className="form-fields">
@@ -76,7 +49,7 @@ const Form = () => {
           <Button variant="primary" type="submit" height="30px">
             Create Task
           </Button>
-          <PopUp open={isOpen} close={closeModal} image="/assets/man-with-calendar.png">
+          <PopUp open={modalIsOpen} close={closeModal} image="/assets/man-with-calendar.png">
             Task successfully created!
           </PopUp>
         </div>

@@ -11,6 +11,10 @@
     @include displayFlex($align:center);
     height : 80%;
     width : 98%;
+
+    @include respond-to("sm") {
+      width : 95%;
+    }
     
     .task-priority {
       flex-basis : 10%;
@@ -18,6 +22,10 @@
 
       .priority-dot {
         font-size : 40px;
+       
+        @include respond-to("sm") {
+          font-size : 30px;
+        }
         
         &-danger {
           color : accent-color("danger", "500");
@@ -37,16 +45,28 @@
     .task-name-due {
       flex-basis : 75%;
 
+      @include respond-to("sm") {
+        flex-basis : 70%;
+      }
+
       .task-name {
         font-weight : 500;
         font-size : 16px;
         margin-bottom : 5px;
+        
+        @include respond-to("sm") {
+          font-size : 14px;
+        }
       }
 
       .task-due {
         font-size : 12px;
         opacity : .5;
         font-weight : 500;
+
+        @include respond-to("sm") {
+          font-size : 10px;
+        }
       }
     }
 
@@ -54,6 +74,10 @@
       @include displayFlex(row, space-around, center);
       flex-basis : 15%;
       height : 100%;
+
+      @include respond-to("sm") {
+        flex-basis : 20%;
+      }
       
       .task-btn {
         font-size : 25px;

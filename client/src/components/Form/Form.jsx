@@ -17,7 +17,7 @@ const Form = ({createTask}) => {
             <input type="text" name="task" id="task" required />
           </div>
           <div className="form-field">
-            <label htmlFor="description">Description</label>
+            <label htmlFor="description">Desc</label>
             <textarea name="description" id="description" />
           </div>
           <div className="form-field">

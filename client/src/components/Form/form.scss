@@ -8,6 +8,14 @@
   box-shadow : 0 7px 20px primary-color("turquoise", "800");
   margin-bottom : 25px;
 
+  @include respond-to("md") {
+    width : 550px;
+  }
+
+  @include respond-to("sm") {
+    width : 330px;
+  }
+
   .form-container {
     @include displayFlex(column, flex-start, center);
     width : 90%;
@@ -16,6 +24,10 @@
     .form-title {
       text-align : center;
       margin-bottom : 18px;
+
+      @include respond-to("sm") {
+        font-size : 18px;
+      }
     }
     
     .form-fields {
@@ -32,6 +44,10 @@
           text-align : right;
           margin-right : 20px;
           font-weight : 500;
+
+          @include respond-to("sm") {
+            font-size : 14px;
+          }
         }
 
         input,textarea, select {
@@ -42,6 +58,10 @@
           padding : 5px;
           &:focus{
             border : 3px solid primary-color("turquoise", "700");
+          }
+
+          @include respond-to("sm") {
+            font-size : 12px;
           }
         }
 

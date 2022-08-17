@@ -5,11 +5,27 @@
   min-height : calc(95vh - 350px - 25px);
   width : 580px;
 
+  @include respond-to("lg") {
+    min-height : calc(95vh - 350px - 25px - 18%);
+  }
+
+  @include respond-to("md") {
+    width : 550px;
+  }
+
+  @include respond-to("sm") {
+    width : 330px;
+  }
+
   .no-task {
     @include displayFlex(row, center, center);
     height : 100%;
     font-size : 20px;
     color : white;
+
+    @include respond-to("md") {
+      font-size : 16px;
+    }
   }
   
   .tasks-container {

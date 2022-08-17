@@ -19,18 +19,11 @@ h1 {
 }
 
 .app{
+  @include displayFlex(row, center, flex-start);
   background-image : radial-gradient(at top left, map-get($clr-primary, "green") 0%, map-get($clr-primary, "blue") 70%); 
   min-width : 100vw;
   min-height : 100vh;
   position : relative;
-  display : flex;
-  align-items : center;
-  justify-content : center;
 
-  .app-container {
-    @include displayFlex(column, $align:center);
-    height : 95vh;
-    min-width : 38vw;
-  }
 }
 

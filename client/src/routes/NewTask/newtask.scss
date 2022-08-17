@@ -1,0 +1,13 @@
+@import "../../config";
+
+.newtask-section {
+  @include displayFlex(column, $align:flex-start);
+  height : 95vh;
+  min-width : 38vw;
+  margin-top : 15px;
+
+  @include respond-to("lg"){
+    height : 80vh;
+  }
+}
+

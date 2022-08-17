@@ -7,21 +7,25 @@ import useTasks from "../../hooks/useTasks";
 import PopUp from "../../components/common/PopUp/PopUp";
 
 const NewTask = () => {
-  const {tasks, createTask, deleteTask, updateTask, isOpen, closeModal, content} = useTasks();
+  const {
+    tasks,
+    createTask,
+    deleteTask,
+    updateTask,
+    isOpen,
+    closeModal,
+    content,
+  } = useTasks();
 
   return (
-    <>
+    <section className="newtask-section">
       <Navbar />
-      <Form createTask={createTask} />
-      <Tasks tasks={tasks} deleteTask={deleteTask} updateTask={updateTask} />
-      <PopUp
-        open={isOpen}
-        close={closeModal}
-        image={content.image}
-      >
+      <Form createTask={createTask}/>
+      <Tasks tasks={tasks} deleteTask={deleteTask} updateTask={updateTask}/>
+      <PopUp open={isOpen} close={closeModal} image={content.image}>
         {content.message}
       </PopUp>
-    </>
+    </section>
   );
 };
 

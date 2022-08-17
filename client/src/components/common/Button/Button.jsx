@@ -3,7 +3,7 @@ import "./button.scss";
 
 const Button = ({variant, type, height, width, children}) => {
   return (
-    <button type={type} className={`btn btn-${variant}`} style={{height: height, width: width || "100%"}}>
+    <button type={type || "button"} className={`btn btn-${variant}`} style={{height: height, width: width || "100%"}}>
       {children}
     </button>
   )

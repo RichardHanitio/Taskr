@@ -9,7 +9,9 @@ const useTasks = () => {
   // GET tasks
   const getTasks = useCallback(async () => {
     httpGetTasks().then((resp) => {
-      setTasks(resp.data);
+      setTasks(resp.data.sort((a,b) => {
+        return Number(new Date(b.dateCreated).getTime()) - Number(new Date(a.dateCreated).getTime());
+      }));
     });
   }, []);
 
@@ -34,8 +36,9 @@ const useTasks = () => {
     const desc = data.get("description");
     const dueDate = new Date(data.get("due-date"));
     const priority = data.get("priority");
+    const dateCreated = new Date().toLocaleString();
 
-    const dataObj = { task, desc, dueDate, priority };
+    const dataObj = { task, desc, dueDate, priority, dateCreated };
 
     await httpCreateTask(dataObj).catch((err) => console.log(err));
 

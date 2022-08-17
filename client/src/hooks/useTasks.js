@@ -1,14 +1,10 @@
 import { useEffect, useState, useCallback } from "react";
-
 import { httpGetTasks, httpCreateTask, httpDeleteTask } from "./requests";
+import useModals from "../hooks/useModals";
 
 const useTasks = () => {
   const [tasks, setTasks] = useState([]);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-
-  const closeModal = () => {
-    setModalIsOpen(false);
-  };
+  const { closeModal, openModal, isOpen, modalContent, content } = useModals();
 
   // GET tasks
   const getTasks = useCallback(async () => {
@@ -26,7 +22,8 @@ const useTasks = () => {
     await httpDeleteTask(taskId).catch((err) => console.log(err));
 
     setTasks(getTasks());
-    setModalIsOpen(true);
+    modalContent("/assets/man-success.jpg","Task deleted successfully")
+    openModal();
   }, []);
 
   // POST task
@@ -43,8 +40,11 @@ const useTasks = () => {
     await httpCreateTask(dataObj).catch((err) => console.log(err));
 
     setTasks(getTasks());
-    setModalIsOpen(true);
+    modalContent("/assets/man-success.jpg", "Task created successfully")
+    openModal();
+    
     e.target.reset();
+
   }, []);
 
   // PATCH task
@@ -55,8 +55,9 @@ const useTasks = () => {
     deleteTask,
     createTask,
     updateTask,
-    modalIsOpen,
+    isOpen,
     closeModal,
+    content
   };
 };
 

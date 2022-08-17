@@ -5,9 +5,11 @@
   background: rgb(255, 255, 255);
   width : 400px;
   height : 400px;
+  border-radius : 10px;
+  box-shadow : 0 3px 10px primary-color("turquoise", "800");
 }
 .popup-overlay {
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.4);
 }
 .popup-container {
   @include displayFlex(column, space-around, center);
@@ -15,7 +17,7 @@
   width : 70%;
 }
 .popup-image {
-  width : 200px;
+  width : 320px;
 }
 .popup-caption {
   font-size : 20px;
@@ -32,11 +34,11 @@
   cursor: pointer;
   position: absolute;
   display: block;
-  padding: 2px 5px;
+  padding: 6px 8px;
   line-height: 20px;
   right: -10px;
   top: -10px;
-  font-size: 24px;
+  font-size: 30px;
   background: #ffffff;
   border-radius: 18px;
   border: 1px solid #cfcece;

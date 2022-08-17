@@ -1,12 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import "./form.scss";
 import Button from "../common/Button/Button";
-import PopUp from "../common/PopUp/PopUp";
-import {ModalContext} from "../../routes/NewTask/NewTask";
 
 const Form = ({createTask}) => {
-  const {modalIsOpen, closeModal} = useContext(ModalContext);
-
   return (
     <div className="form">
       <form
@@ -49,9 +45,6 @@ const Form = ({createTask}) => {
           <Button variant="primary" type="submit" height="30px">
             Create Task
           </Button>
-          <PopUp open={modalIsOpen} close={closeModal} image="/assets/man-with-calendar.png">
-            Task successfully created!
-          </PopUp>
         </div>
       </form>
     </div>

@@ -4,19 +4,24 @@ import Navbar from "../../components/common/Navbar/Navbar";
 import Form from "../../components/Form/Form";
 import Tasks from "../../components/Tasks/Tasks";
 import useTasks from "../../hooks/useTasks";
-
-export const ModalContext = React.createContext();
+import PopUp from "../../components/common/PopUp/PopUp";
 
 const NewTask = () => {
-  const {tasks, createTask, deleteTask, updateTask, modalIsOpen, closeModal} = useTasks();
-  
+  const {tasks, createTask, deleteTask, updateTask, isOpen, closeModal, content} = useTasks();
 
   return (
-    <ModalContext.Provider value={{modalIsOpen, closeModal}}>
+    <>
       <Navbar />
       <Form createTask={createTask} />
       <Tasks tasks={tasks} deleteTask={deleteTask} updateTask={updateTask} />
-    </ModalContext.Provider>
+      <PopUp
+        open={isOpen}
+        close={closeModal}
+        image={content.image}
+      >
+        {content.message}
+      </PopUp>
+    </>
   );
 };
 

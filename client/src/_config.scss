@@ -1,38 +1,37 @@
 // colors
-$clr-primary : (
-  "turquoise" : (
-    "500" : #3FE0D0,
-    "600" : #2EC0BF,
-    "700" : #2096A0,
-    "800" : #136E81
+$clr-primary: (
+  "turquoise": (
+    "500": #3fe0d0,
+    "600": #2ec0bf,
+    "700": #2096a0,
+    "800": #136e81,
   ),
-  "blue" : #40A0E0,
-  "green" : #40E080
+  "blue": #40a0e0,
+  "green": #40e080,
 );
 
-$clr-accent : (
-  "danger" : (
-    "500" : #FF5635
+$clr-accent: (
+  "danger": (
+    "500": #ff5635,
   ),
-  "warning" : (
-    "500" : #FFD800
+  "warning": (
+    "500": #ffd800,
   ),
-  "info" : (
-    "500" : #1485FF
+  "info": (
+    "500": #1485ff,
   ),
-  "success" : (
-    "500" : #8FCE1B
-  )
+  "success": (
+    "500": #8fce1b,
+  ),
 );
-
 
 // breakpoints
-$breakpoints : (
-  "xxl" : 1400px,
-  "xl" : 1200px,
-  "lg" : 992px,
-  "md" : 768px,
-  "sm" : 576px,
+$breakpoints: (
+  "xxl": 1400px,
+  "xl": 1200px,
+  "lg": 992px,
+  "md": 768px,
+  "sm": 576px,
 );
 
 // functions & mixins
@@ -44,10 +43,25 @@ $breakpoints : (
   @return map-get($clr-accent, $name, $value);
 }
 
-@mixin displayFlex($direction: row, $justify: flex-start, $align:flex-start) {
-  display : flex;
-  flex-direction : $direction;
-  justify-content : $justify;
-  align-items : $align;
+@function get-breakpoint($name) {
+  @return map-get($breakpoints, $name);
 }
-  
+
+@mixin displayFlex($direction: row, $justify: flex-start, $align: flex-start) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+@mixin respond-to($bp) {
+  @if map-has-key($map: $breakpoints, $key: $bp) {
+    @media screen and (max-width: map-get($breakpoints, $bp)) {
+      @content;
+    }
+  }
+  else {
+    @warn "Value '#{$bp}' doesn't exist. "+
+      "Available breakpoints are : #{map-keys($breakpoints)}";
+  }
+}

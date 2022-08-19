@@ -25,5 +25,19 @@ h1 {
   min-height : 100vh;
   position : relative;
 
+  .default-logo {
+    position : absolute;
+    left : 50px;
+    top : 20px;
+    height : 50px;
+
+    @include respond-to("xl") {
+      height : 45px;
+    }
+
+    @include respond-to("lg") {
+      display : none;
+    }
+  }
 }
 

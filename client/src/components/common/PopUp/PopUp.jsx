@@ -11,7 +11,9 @@ const PopUp = ({open, close, children, image}) => {
           &times;
         </a>
         <div className="popup-container" >
-          <img src={image} className="popup-image"/>
+          <div className="popup-image-container">
+            <img src={image} className="popup-image"/>
+          </div>
           <div className="popup-caption">{children}</div>
         </div>
       </div>

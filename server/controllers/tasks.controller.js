@@ -37,8 +37,18 @@ const getTask = async(req, res) => {
   }
 }
 
-const updateTask = (req, res) => {
-  res.status(200).send("update task");
+const updateTask = async(req, res) => {
+  try {
+    const {id} = req.params;
+
+    const task = await Task.findOneAndUpdate({_id: id}, req.body, {
+      new : true, runValidators : true,
+    });
+
+    res.status(200).json(task);
+  } catch(err) {
+    res.status(500).json({"error" : err});
+  }
 }
 
 const deleteTask = async(req, res) => {

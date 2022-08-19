@@ -5,4 +5,31 @@
   height : 95vh;
   min-width : 38vw;
   margin-top : 15px;
+
+
+  .update-link {
+    align-self : flex-start;
+    text-decoration : none;
+    .update-back-btn {
+      @include displayFlex(row, center, center);
+      margin-bottom : 20px;
+      color : white;
+      cursor : pointer;
+      opacity : .8;
+
+      &:hover {
+        opacity : 1;
+      }
+
+      &-icon {
+        color : white;
+        font-size : 30px;
+        margin-right : 5px;
+      }
+
+      span {
+        font-size : 20px;
+      }
+    }
+  }
 }

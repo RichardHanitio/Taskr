@@ -1,0 +1,10 @@
+@import "../../../config";
+
+.loading-container {
+  @include displayFlex(row, center, center);
+  background-color : white;
+  width : 100vw;
+  height : 100vh;
+}
+
+

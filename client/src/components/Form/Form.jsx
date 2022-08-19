@@ -12,7 +12,7 @@ const Form = ({mode, createTask, updateTask}) => {
   const id = searchParams.get("id");
 
   const getTask = useCallback(async (taskId) => {
-    await httpGetTask(searchParams.get("id"))
+    taskId && await httpGetTask(taskId)
       .then((resp) => setTask(resp.data))
       .catch((err) => console.log(err));
     

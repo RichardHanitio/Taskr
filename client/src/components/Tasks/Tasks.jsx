@@ -2,10 +2,10 @@ import React from "react";
 import "./tasks.scss";
 import Task from "../common/Task/Task";
 
-const Tasks = ({tasks, deleteTask}) => {
+const Tasks = ({tasks, deleteTask, updateTask}) => {
   return (
     <div className="tasks">
-      {tasks.length == 0 && (
+      {tasks.length === 0 && (
         <div className="no-task">No tasks currently ╮(＾▽＾)╭</div>
       )}
       {tasks.length > 0 && (
@@ -24,6 +24,7 @@ const Tasks = ({tasks, deleteTask}) => {
                     dueDate={date.toLocaleString()}
                     priority={task.priority}
                     deleteTask={() => deleteTask(task._id)}
+                    updateTask = {() => updateTask(task._id)}
                   />
                 );
               })

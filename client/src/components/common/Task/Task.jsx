@@ -3,8 +3,10 @@ import "./task.scss";
 import { GoPrimitiveDot } from "react-icons/go";
 import { BiEdit } from "react-icons/bi";
 import { MdDeleteOutline } from "react-icons/md";
+import {Link} from "react-router-dom";
+import moment from "moment";
 
-const Task = ({ task, id, description, dueDate, priority, deleteTask }) => {
+const Task = ({ task, id, description, dueDate, priority, deleteTask, updateTask }) => {
   let color;
   if (priority === "high") color = "danger";
   else if (priority === "medium") color = "warning";
@@ -37,9 +39,14 @@ const Task = ({ task, id, description, dueDate, priority, deleteTask }) => {
 
   const date = new Date(dueDate);
   const now = new Date();
-  const formattedDate = `${ date.getDate()!=now.getDate() ? day[date.getDay()] : "Today"}, ${date.getDate()} ${
-    month[date.getMonth()]
-  } ${date.getFullYear()} (${date.getHours()}:${date.getMinutes()}:${date.getSeconds()})`;
+
+  let formattedDate;
+  if(date.getDate()!==now.getDate()) {
+    formattedDate = moment(date).format("llll");
+  } else {
+    formattedDate = moment(date).format("[Today, ]lll");
+  }
+
 
   return (
     <div className="task">
@@ -51,8 +58,10 @@ const Task = ({ task, id, description, dueDate, priority, deleteTask }) => {
           <div className="task-name">{task}</div>
           <div className="task-due">{formattedDate}</div>
         </div>
-        <div className="task-edit-delete">
-          <BiEdit className="task-btn task-edit-btn" />
+        <div className="task-update-delete">
+          <Link to={`/update?id=${id}`}>
+            <BiEdit className="task-btn task-update-btn" />
+          </Link>
           <MdDeleteOutline
             className="task-btn task-delete-btn"
             onClick={deleteTask}

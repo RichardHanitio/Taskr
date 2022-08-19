@@ -20,7 +20,7 @@ const NewTask = () => {
   return (
     <section className="newtask-section">
       <Navbar />
-      <Form createTask={createTask}/>
+      <Form mode="create" createTask={createTask}/>
       <Tasks tasks={tasks} deleteTask={deleteTask} updateTask={updateTask}/>
       <PopUp open={isOpen} close={closeModal} image={content.image}>
         {content.message}

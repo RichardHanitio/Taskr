@@ -2,11 +2,11 @@
 
 .tasks {
   @include displayFlex(row, center, flex-end);
-  min-height : calc(95vh - 350px - 25px);
+  height : calc(95vh - 370px - 25px);
   width : 580px;
 
   @include respond-to("lg") {
-    min-height : calc(95vh - 350px - 25px - 18%);
+    height : calc(95vh - 370px - 25px - 18%);
   }
 
   @include respond-to("md") {

@@ -1,17 +1,29 @@
 import { useEffect, useState, useCallback } from "react";
-import { httpGetTasks, httpCreateTask, httpDeleteTask } from "./requests";
+import {
+  httpGetTasks,
+  httpCreateTask,
+  httpDeleteTask,
+  httpUpdateTask,
+  httpGetTask,
+} from "./requests";
 import useModals from "../hooks/useModals";
 
 const useTasks = () => {
   const [tasks, setTasks] = useState([]);
+  const [task, setTask] = useState({});
   const { closeModal, openModal, isOpen, modalContent, content } = useModals();
 
   // GET tasks
   const getTasks = useCallback(async () => {
     httpGetTasks().then((resp) => {
-      setTasks(resp.data.sort((a,b) => {
-        return Number(new Date(b.dateCreated).getTime()) - Number(new Date(a.dateCreated).getTime());
-      }));
+      setTasks(
+        resp.data.sort((a, b) => {
+          return (
+            Number(new Date(b.dateCreated).getTime()) -
+            Number(new Date(a.dateCreated).getTime())
+          );
+        })
+      );
     });
   }, []);
 
@@ -24,7 +36,7 @@ const useTasks = () => {
     await httpDeleteTask(taskId).catch((err) => console.log(err));
 
     setTasks(getTasks());
-    modalContent("/assets/man-success.jpg","Task deleted successfully")
+    modalContent("/assets/man-success.jpg", "Task deleted successfully");
     openModal();
   }, []);
 
@@ -43,24 +55,34 @@ const useTasks = () => {
     await httpCreateTask(dataObj).catch((err) => console.log(err));
 
     setTasks(getTasks());
-    modalContent("/assets/man-success.jpg", "Task created successfully")
+    modalContent("/assets/man-success.jpg", "Task created successfully");
     openModal();
-    
-    e.target.reset();
 
+    e.target.reset();
   }, []);
 
   // PATCH task
-  const updateTask = useCallback(async (taskId) => {});
+  const updateTask = useCallback(async (taskId, updatedTask) => {
+    await httpUpdateTask(taskId).catch((err) => console.log(err));
+  });
+
+  // GET task
+  const getTask = useCallback(async (taskId) => {
+    await httpGetTask(taskId)
+      .then((resp) => setTask(resp.data))
+      .catch((err) => console.log(err));
+  }, []);
 
   return {
     tasks,
+    task,
     deleteTask,
     createTask,
     updateTask,
+    getTask,
     isOpen,
     closeModal,
-    content
+    content,
   };
 };
 

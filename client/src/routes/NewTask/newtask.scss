@@ -1,7 +1,7 @@
 @import "../../config";
 
 .newtask-section {
-  @include displayFlex(column, $align:flex-start);
+  @include displayFlex(column, $align:center);
   height : 95vh;
   min-width : 38vw;
   margin-top : 15px;

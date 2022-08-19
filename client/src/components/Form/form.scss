@@ -4,7 +4,7 @@
   @include displayFlex(column, center, center);
   background-color : white;
   width : 580px;
-  min-height : 350px;
+  height : 370px;
   box-shadow : 0 7px 20px primary-color("turquoise", "800");
   margin-bottom : 25px;
 
@@ -58,6 +58,10 @@
           padding : 5px;
           &:focus{
             border : 3px solid primary-color("turquoise", "700");
+          }
+          &:disabled {
+            background-color : rgba(0,0,0,.15);
+            border : none;
           }
 
           @include respond-to("sm") {

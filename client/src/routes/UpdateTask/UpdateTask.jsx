@@ -4,10 +4,10 @@ import Form from "../../components/Form/Form";
 import useTasks from "../../hooks/useTasks";
 
 const UpdateTask = () => {
-  const {task, getTask, updateTask} = useTasks();
+  const {task, updateTask, isLoad} = useTasks();
   return (
     <section className="update-task">
-      <Form mode="update" task={task} getTask={getTask} updateTask={updateTask}/>
+      <Form mode="update" task={task} isLoad={isLoad} updateTask={updateTask}/>
     </section>
   )
 }

@@ -1,30 +1,9 @@
-import React, {useState, useEffect, useCallback} from "react";
+import React from "react";
 import "./form.scss";
 import Button from "../common/Button/Button";
-import {useSearchParams} from "react-router-dom";
-import {httpGetTask} from "../../hooks/requests";
 import moment from "moment";
 
-const Form = ({mode, createTask, updateTask}) => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [task, setTask] = useState({});
-  const [isLoad, setIsLoad] = useState(false);
-  const id = searchParams.get("id");
-
-  const getTask = useCallback(async (taskId) => {
-    taskId && await httpGetTask(taskId)
-      .then((resp) => setTask(resp.data))
-      .catch((err) => console.log(err));
-    
-    setIsLoad(true);
-  }, []);
-
-
-  useEffect(() => {
-    getTask(id);
-  }, []);
-
-
+const Form = ({mode, createTask, updateTask, isLoad, task}) => {
   if(mode==="create"){
     return (
       <div className="form">
@@ -76,7 +55,7 @@ const Form = ({mode, createTask, updateTask}) => {
             <div className="form-fields">
               <div className="form-field">
                 <label>Task ID</label>
-                <input type="text" name="taskid" defaultValue={id} disabled />
+                <input type="text" name="taskid" defaultValue={task._id} disabled />
               </div>
               <div className="form-field">
                 <label htmlFor="task">Task</label>

@@ -7,11 +7,15 @@ import {
   httpGetTask,
 } from "./requests";
 import useModals from "../hooks/useModals";
+import { useSearchParams } from "react-router-dom";
 
 const useTasks = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [tasks, setTasks] = useState([]);
   const [task, setTask] = useState({});
+  const [isLoad, setIsLoad] = useState(false);
   const { closeModal, openModal, isOpen, modalContent, content } = useModals();
+  const id = searchParams.get("id");
 
   // GET tasks
   const getTasks = useCallback(async () => {
@@ -27,9 +31,23 @@ const useTasks = () => {
     });
   }, []);
 
+  // GET task
+  const getTask = useCallback(async (taskId) => {
+    taskId &&
+      (await httpGetTask(taskId)
+        .then((resp) => setTask(resp.data))
+        .catch((err) => console.log(err)));
+
+    setIsLoad(true);
+  }, []);
+
   useEffect(() => {
     getTasks();
   }, [getTasks]);
+
+  useEffect(() => {
+    getTask(id);
+  }, [getTask, id]);
 
   // DELETE task
   const deleteTask = useCallback(async (taskId) => {
@@ -38,7 +56,7 @@ const useTasks = () => {
     setTasks(getTasks());
     modalContent("/assets/man-success.jpg", "Task deleted successfully");
     openModal();
-  }, []);
+  }, [getTasks, modalContent, openModal]);
 
   // POST task
   const createTask = useCallback(async (e) => {
@@ -59,27 +77,20 @@ const useTasks = () => {
     openModal();
 
     e.target.reset();
-  }, []);
+  }, [getTasks, modalContent, openModal]);
 
   // PATCH task
   const updateTask = useCallback(async (taskId, updatedTask) => {
     await httpUpdateTask(taskId).catch((err) => console.log(err));
-  });
-
-  // GET task
-  const getTask = useCallback(async (taskId) => {
-    await httpGetTask(taskId)
-      .then((resp) => setTask(resp.data))
-      .catch((err) => console.log(err));
   }, []);
 
   return {
-    tasks,
-    task,
-    deleteTask,
     createTask,
     updateTask,
-    getTask,
+    deleteTask,
+    tasks,
+    task,
+    isLoad,
     isOpen,
     closeModal,
     content,

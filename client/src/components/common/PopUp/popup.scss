@@ -14,7 +14,7 @@
   }
 }
 .popup-overlay {
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.5);
 }
 .popup-container {
   @include displayFlex(column, space-around, center);

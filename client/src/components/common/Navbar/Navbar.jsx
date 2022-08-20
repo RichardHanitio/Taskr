@@ -3,22 +3,23 @@ import "./navbar.scss";
 import { AiOutlinePlus, AiFillCalendar, AiFillSetting } from "react-icons/ai";
 import {FaClipboardList} from "react-icons/fa";
 import {RiStickyNoteFill} from "react-icons/ri";
+import {Link} from "react-router-dom"
 
 
 const Navbar = () => {
   return (
     <div className="navbar-outer-container">
-      <div className="navbar-add-btn">
+      <Link to="/" className="navbar-add-btn">
         <AiOutlinePlus className="navbar-add-icon" />
-      </div>
+      </Link>
       <div className="navbar-btns">
         <ul className="navbar-top-btn">
-          <li>
+          <Link to="/lists">
             <FaClipboardList className="navbar-icon" />
-          </li>
-          <li>
+          </Link>
+          <Link to="/calendar">
             <AiFillCalendar className="navbar-icon" />
-          </li>
+          </Link>
         </ul>
         <ul className="navbar-bottom-btn">
           <li>

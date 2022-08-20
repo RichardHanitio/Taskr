@@ -1,19 +1,25 @@
 import React, {lazy, Suspense} from "react";
-import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import {BrowserRouter as Router, Routes, Route, Link} from "react-router-dom";
 import Loading from "./components/common/Loading/Loading";
 
 const NewTask = lazy(() => import("./routes/NewTask/NewTask"));
 const UpdateTask = lazy(() => import("./routes/UpdateTask/UpdateTask"));
+const ListTasks = lazy(() => import("./routes/ListTasks/ListTasks"));
+const Calendar = lazy(() => import("./routes/Calendar/Calendar"));
 
 const App = () => {
   return (
     <div className="app">
-      <img className="default-logo" src="/assets/taskr-white-logo.png" />
       <Router>
+        <Link to="/">
+          <img className="default-logo" src="/assets/taskr-white-logo.png" />
+        </Link>
         <Suspense fallback={<Loading />}>
           <Routes>
             <Route path="/">
               <Route index element={<NewTask />} />
+              <Route path="/calendar" element={<Calendar />} />
+              <Route path="/lists" element={<ListTasks />} />
               <Route path="update">
                 <Route index element={<UpdateTask />} />
               </Route>

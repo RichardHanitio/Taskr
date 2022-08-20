@@ -33,7 +33,7 @@ const useTasks = () => {
       .catch((err) => {
         modalContent(
           "/assets/man-stress.png",
-          "Something went wrong, please try again"
+          err.response.data.error
         );
         openModal();
       });
@@ -50,7 +50,7 @@ const useTasks = () => {
         .catch((err) => {
           modalContent(
             "/assets/man-stress.png",
-            "Something went wrong, please try again"
+            err.response.data.error
           );
           openModal();
         }));
@@ -70,13 +70,13 @@ const useTasks = () => {
       await httpDeleteTask(taskId)
         .then((resp) => {
           setTasks(getTasks());
-          modalContent("/assets/man-success.jpg", "Task deleted successfully");
+          modalContent("/assets/man-success.jpg", resp.data.msg);
           openModal();
         })
         .catch((err) => {
           modalContent(
             "/assets/man-stress.png",
-            "Something went wrong, please try again"
+            err.response.data.error
           );
           openModal();
         });
@@ -101,13 +101,14 @@ const useTasks = () => {
       await httpCreateTask(dataObj)
         .then((resp) => {
           setTasks(getTasks());
-          modalContent("/assets/man-success.jpg", "Task created successfully");
+          modalContent("/assets/man-success.jpg", resp.data.msg);
           openModal();
+          e.target.reset();
         })
         .catch((err) => {
           modalContent(
             "/assets/man-stress.png",
-            "Something went wrong, please try again"
+            err.response.data.error
           );
           openModal();
         });
@@ -131,13 +132,13 @@ const useTasks = () => {
 
       await httpUpdateTask(id, updatedTask)
         .then((resp) => {
-          modalContent("/assets/man-success.jpg", "Task updated successfully");
+          modalContent("/assets/man-success.jpg", resp.data.msg);
           openModal();
         })
         .catch((err) => {
           modalContent(
             "/assets/man-stress.png",
-            "Something went wrong, please try again"
+            err.response.data.error
           );
           openModal();
         });

@@ -12,7 +12,7 @@ const Form = ({mode, createTask, updateTask, isLoad, task}) => {
           <div className="form-fields">
             <div className="form-field">
               <label htmlFor="task">Task</label>
-              <input type="text" name="task" id="task" required />
+              <input type="text" name="task" id="task" required/>
             </div>
             <div className="form-field">
               <label htmlFor="description">Desc</label>

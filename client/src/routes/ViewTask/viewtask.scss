@@ -1,20 +1,21 @@
 @import "../../config";
 
-.update-task {
-  @include displayFlex(column, center, center);
-  height : 95vh;
-  min-width : 38vw;
-  margin-top : 15px;
+.view-task {
+  @include displayFlex(row, center, center);
+  height : 80vh;
+  width : 65vw;
+  align-self : center;
+  position : relative;
 
-
-  .update-back-btn {
+  .view-back-btn {
     align-self : flex-start;
     text-decoration : none;
     @include displayFlex(row, center, center);
-    margin-bottom : 20px;
     color : white;
     cursor : pointer;
     opacity : .8;
+    position : absolute;
+    left : 0;
 
     &:hover {
       opacity : 1;
@@ -30,4 +31,6 @@
       font-size : 20px;
     }
   }
+
+  
 }

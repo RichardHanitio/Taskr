@@ -36,6 +36,7 @@ const useTasks = () => {
           err.response.data.error
         );
         openModal();
+        console.log(err);
       });
   }, []);
 
@@ -142,20 +143,21 @@ const useTasks = () => {
           );
           openModal();
         });
-    },
-    [modalContent, openModal]
+    },[modalContent, openModal, id]
   );
 
   return {
     createTask,
     updateTask,
     deleteTask,
+    getTask,
     tasks,
     task,
     isLoad,
     isOpen,
     closeModal,
     content,
+    id
   };
 };
 

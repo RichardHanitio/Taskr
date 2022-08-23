@@ -55,7 +55,12 @@ const Form = ({mode, createTask, updateTask, isLoad, task}) => {
             <div className="form-fields">
               <div className="form-field">
                 <label>Task ID</label>
-                <input type="text" name="taskid" defaultValue={task._id} disabled />
+                <input
+                  type="text"
+                  name="taskid"
+                  defaultValue={task._id}
+                  disabled
+                />
               </div>
               <div className="form-field">
                 <label htmlFor="task">Task</label>
@@ -82,7 +87,7 @@ const Form = ({mode, createTask, updateTask, isLoad, task}) => {
                   name="due-date"
                   id="due-date"
                   // defaultValue="2018-06-12T19:30"
-                  defaultValue={moment(task.dueDate).format("yyyy-MM-DDThh:mm")}
+                  defaultValue={moment(task.dueDate).format("yyyy-MM-DDTHH:mm")}
                   required
                 />
               </div>

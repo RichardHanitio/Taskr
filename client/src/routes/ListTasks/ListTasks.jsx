@@ -1,9 +1,12 @@
 import React from 'react'
 import "./listtasks.scss";
+import Navbar from "../../components/common/Navbar/Navbar";
 
 const ListTasks = () => {
   return (
-    <div>ListTasks</div>
+    <section className="lists-section">
+      <Navbar />
+    </section>
   )
 }
 

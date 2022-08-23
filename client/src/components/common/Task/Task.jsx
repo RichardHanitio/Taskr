@@ -6,12 +6,7 @@ import { MdDeleteOutline } from "react-icons/md";
 import {Link} from "react-router-dom";
 import moment from "moment";
 
-const Task = ({ task, id, description, dueDate, priority, deleteTask, updateTask }) => {
-  let color;
-  if (priority === "high") color = "danger";
-  else if (priority === "medium") color = "warning";
-  else color = "success";
-
+const Task = ({ task, id, description, dueDate, priority, deleteTask }) => {
   const date = new Date(dueDate);
   const now = new Date();
   let formattedDate;
@@ -22,10 +17,10 @@ const Task = ({ task, id, description, dueDate, priority, deleteTask, updateTask
   }
 
   return (
-    <div className="task">
+    <Link className="task" to={`/view?id=${id}`}>
       <div className="task-container">
         <div className="task-priority">
-          <GoPrimitiveDot className={`priority-dot priority-dot-${color}`} />
+          <GoPrimitiveDot className={`priority-dot priority-dot-${priority}`} />
         </div>
         <div className="task-name-due">
           <div className="task-name">{task}</div>
@@ -33,15 +28,17 @@ const Task = ({ task, id, description, dueDate, priority, deleteTask, updateTask
         </div>
         <div className="task-update-delete">
           <Link to={`/update?id=${id}`}>
-            <BiEdit className="task-btn task-update-btn" />
+            <BiEdit className="task-btn task-update-btn"/>
           </Link>
-          <MdDeleteOutline
-            className="task-btn task-delete-btn"
-            onClick={deleteTask}
-          />
+          <Link to="/">
+            <MdDeleteOutline
+              className="task-btn task-delete-btn"
+              onClick={deleteTask}
+            />
+          </Link>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

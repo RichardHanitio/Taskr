@@ -6,6 +6,7 @@ const NewTask = lazy(() => import("./routes/NewTask/NewTask"));
 const UpdateTask = lazy(() => import("./routes/UpdateTask/UpdateTask"));
 const ListTasks = lazy(() => import("./routes/ListTasks/ListTasks"));
 const Calendar = lazy(() => import("./routes/Calendar/Calendar"));
+const ViewTask = lazy(() => import("./routes/ViewTask/ViewTask"));
 
 const App = () => {
   return (
@@ -22,6 +23,9 @@ const App = () => {
               <Route path="/lists" element={<ListTasks />} />
               <Route path="update">
                 <Route index element={<UpdateTask />} />
+              </Route>
+              <Route path="view">
+                <Route index element={<ViewTask />} />
               </Route>
             </Route>
           </Routes>

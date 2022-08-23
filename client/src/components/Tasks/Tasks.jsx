@@ -2,7 +2,7 @@ import React from "react";
 import "./tasks.scss";
 import Task from "../common/Task/Task";
 
-const Tasks = ({tasks, deleteTask, updateTask}) => {
+const Tasks = ({getTasks, deleteTask, updateTask, tasks}) => {
   return (
     <div className="tasks">
       {tasks.length === 0 && (

@@ -65,7 +65,6 @@ const createTask = async (req, res) => {
           console.log(err);
           return;
         }
-        console.log(`event created ${event.htmlLink}`);
       }
     );
 
@@ -79,6 +78,15 @@ const getTask = async (req, res) => {
   try {
     const { id } = req.params;
     const task = await Task.findOne({ _id: id });
+    
+    calendar.events.get(
+    { calendarId: "primary", eventId: id },
+    (err, res) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+    })
     if (!task) {
       return res.status(404).json({ error: `No task with id ${id} found` });
     }
@@ -131,7 +139,6 @@ const updateTask = async (req, res) => {
           console.log(err);
           return;
         }
-        console.log("Event patched successfully");
       }
     );
 
@@ -155,7 +162,6 @@ const deleteTask = async (req, res) => {
           console.log(err);
           return;
         }
-        console.log("Event deleted successfully");
       }
     );
     res.status(200).json({ msg: "Task deleted successfully", task });

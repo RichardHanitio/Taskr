@@ -1,13 +1,34 @@
 @import "../../config";
 
 .newtask-section {
-  @include displayFlex(column, $align:center);
+  @include displayFlex(row, center, center);
+  align-self : center;
   height : 95vh;
   min-width : 38vw;
-  margin-top : 15px;
 
   @include respond-to("lg"){
     height : 80vh;
+  }
+  .newtask-container {
+    @include displayFlex(column);
+    width : 580px;
+    height : 100%;
+
+    .newtask-form {
+      height : 380px;
+      width : 100%;
+    }
+    
+    .newtask-recent {
+      color : white;
+      width : 100%;
+      text-align : left;
+    }
+
+    .newtask-tasks {
+      // form 380px anggap new task 20px
+      height : calc(100% - 400px);
+    }
   }
 }
 

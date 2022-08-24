@@ -2,7 +2,7 @@
 
 .tasks {
   @include displayFlex(row, center, flex-end);
-  height : calc(95vh - 370px - 25px);
+  // height : calc(95vh - 370px - 25px);
   width : 580px;
 
   @include respond-to("lg") {
@@ -31,15 +31,9 @@
   .tasks-container {
     flex-grow : 1;
     height : 100%;
-    
-    .tasks-recent {
-      color : white;
-      font-size : 14px;
-      height : 30px;
-    }
 
     .tasks-inner-container {
-      height : calc(100% - 30px);
+      height : 100%;
       overflow : auto;
       -ms-overflow-style: none;  /* Internet Explorer 10+ */
       scrollbar-width: none;  /* Firefox */

@@ -1,0 +1,48 @@
+@import "../../../config";
+
+.searchbar{
+  @include displayFlex(row, center, center);
+  background-color : white;
+  height : 45px;
+  width : 580px;
+  border-radius : 5px;
+  box-shadow : 0 0px 10px primary-color("turquoise", "800");
+
+  .searchbar-container {
+    @include displayFlex(row, $align:center);
+    width : 98%;
+    height : 80%;
+
+    .search-icon-container {
+      flex-basis : 10%;
+      height : 100%;
+      @include displayFlex(row, center, center);
+      .search-icon {
+        font-size : 25px;
+        color : primary-color("turquoise", "800");
+      }
+      span {
+        font-size : 30px;
+      }
+    }
+
+    .searchbar-input {
+      flex-basis : 70%;
+      height : 100%;
+
+      &-field {
+        background : none;
+        height : 100%;
+        width : 100%;
+        border : none;
+        outline : none;
+        font-size : 16px;
+      }
+    }
+
+    .searchbar-button-container {
+      flex-basis : 20%;
+      height : 100%;
+    }
+  }
+}

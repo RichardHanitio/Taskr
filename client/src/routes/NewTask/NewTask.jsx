@@ -19,12 +19,19 @@ const NewTask = () => {
 
   return (
     <section className="newtask-section">
-      <Navbar />
-      <Form mode="create" createTask={createTask}/>
-      <Tasks tasks={tasks} deleteTask={deleteTask} updateTask={updateTask}/>
-      <PopUp open={isOpen} close={closeModal} image={content.image}>
-        {content.message}
-      </PopUp>
+      <div className="newtask-container">
+        <Navbar />
+
+        <Form mode="create" createTask={createTask} className="newtask-form"/>
+        
+        <div className="newtask-recent">Recently created</div>
+        
+        <Tasks tasks={tasks} deleteTask={deleteTask} updateTask={updateTask} className="newtask-tasks"/>
+        
+        <PopUp open={isOpen} close={closeModal} image={content.image}>
+          {content.message}
+        </PopUp>
+      </div>
     </section>
   );
 };

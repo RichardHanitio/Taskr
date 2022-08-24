@@ -1,6 +1,6 @@
 @import "../../../config";
 
-.view-task-container {
+.card-container {
   @include displayFlex(row);
   background-color : white;
   height : 480px;
@@ -8,7 +8,7 @@
   box-shadow : 0 7px 20px primary-color("turquoise", "800");
   border-radius : 20px;
   
-  .view-task-image {
+  .card-left {
     flex : 1;
     height : 100%;
     position : relative;
@@ -20,7 +20,7 @@
       filter: brightness(90%);
     }
 
-    .priority-circle {
+    .card-priority {
       width : 100px;
       height : 100px;
       border-radius : 50%;
@@ -43,7 +43,7 @@
     }
   }
 
-  .view-task-caption {
+  .card-right {
     @include displayFlex(row, center, center);
     height : 100%;
     flex : 2.5;
@@ -53,21 +53,22 @@
       height : 80%;
       width : 80%;
 
-      .view-task-caption-inner-container {
+      .card-caption-container {
         @include displayFlex(column, space-around);
-        flex-basis : 85%;
+        flex-basis : 80%;
+        width : 100%;
 
-        .task-title {
+        .card-title {
           font-size : 24px;
         }
 
-        .task-desc {
+        .card-desc {
           font-size : 18px;
           text-align : justify;
         }
 
-        .task-due-date {
-          @include displayFlex(column, space-between);
+        .card-due-date {
+          @include displayFlex(column, space-around);
           width : 100%;
           height : 60px;
 
@@ -75,7 +76,7 @@
             @include displayFlex(row, center, center);
             font-size : 16px;
 
-            .task-due-date-icon {
+            .card-due-date-icon {
               margin-right : 10px;
               font-size : 25px;
               color : primary-color("turquoise", "700");
@@ -84,11 +85,11 @@
         }
       }
       
-      .task-edit-delete {
+      .card-edit-delete {
         @include displayFlex(row, flex-end, center);
         height : 100%;
         width : 100%;
-        flex-basis : 15%;
+        flex-basis : 20%;
 
         &-icon {
           color : primary-color("turquoise", "700");

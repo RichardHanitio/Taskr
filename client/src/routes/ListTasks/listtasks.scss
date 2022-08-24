@@ -1,0 +1,42 @@
+@import "../../config";
+
+.listtasks-section {
+  @include displayFlex(row, center, center);
+  align-self : center;
+  height : 95vh;
+  min-width : 38vw;
+  
+  .listtasks-container {
+    @include displayFlex(column);
+    width : 580px;
+    height : 100%;
+
+    .listtasks-searchbar {
+      height : 45px;
+      width : 100%;
+    }
+
+    .listtasks-sort-by {
+      @include displayFlex(row, flex-end, center);
+      height : 50px;
+      width : 100%;
+
+      span {
+        margin-right : 10px;
+        font-size : 14px;
+        color : white;
+      }
+
+      select {
+        outline : none;
+        border : 1px solid primary-color("turquoise", "700");
+        border-radius : 3px;
+        padding : 5px;
+      }
+    }
+    
+    .listtasks-tasks {
+      height : calc(100% - 50px - 45px);
+    }
+  }
+}

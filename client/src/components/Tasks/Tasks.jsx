@@ -2,15 +2,14 @@ import React from "react";
 import "./tasks.scss";
 import Task from "../common/Task/Task";
 
-const Tasks = ({getTasks, deleteTask, updateTask, tasks}) => {
+const Tasks = ({deleteTask, updateTask, tasks, className}) => {
   return (
-    <div className="tasks">
+    <div className={`${className} tasks`}>
       {tasks.length === 0 && (
         <div className="no-task">No tasks currently ╮(＾▽＾)╭</div>
       )}
       {tasks.length > 0 && (
         <div className="tasks-container">
-          <div className="tasks-recent">Recently created</div>
           <div className="tasks-inner-container">
             {
               tasks.map((task) => {

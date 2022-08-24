@@ -8,36 +8,36 @@ import {Link} from "react-router-dom";
 
 const Card = ({task, deleteTask}) => {
   return (
-    <div className="view-task-container">
-      <div className="view-task-image">
+    <div className="card-container">
+      <div className="card-left">
         <img src="/assets/unsplash-default-img.jpg" alt="pattern" />
         <div
-          className={`priority-circle priority-circle-${task.priority}`}
+          className={`card-priority card-priority-${task.priority}`}
         ></div>
       </div>
-      <div className="view-task-caption">
-        <div className="view-task-caption-container">
-          <div className="view-task-caption-inner-container">
-            <h1 className="task-title">{task.task}</h1>
-            <div className="task-desc">{task.desc}</div>
-            <div className="task-due-date">
-              <div className="task-due-date-item">
-                <BsCalendar2Week className="task-due-date-icon" />
+      <div className="card-right">
+        <div className="card-right-container">
+          <div className="card-caption-container">
+            <h1 className="card-title">{task.task}</h1>
+            <div className="card-desc">{task.desc}</div>
+            <div className="card-due-date">
+              <div className="card-due-date-item">
+                <BsCalendar2Week className="card-due-date-icon" />
                 <span>{moment(task.dueDate).format("dddd, DD MMMM YYYY")}</span>
               </div>
-              <div className="task-due-date-item">
-                <BsClock className="task-due-date-icon" />
+              <div className="card-due-date-item">
+                <BsClock className="card-due-date-icon" />
                 <span>{moment(task.dueDate).format("h:mm A")}</span>
               </div>
             </div>
           </div>
-          <div className="task-edit-delete">
+          <div className="card-edit-delete">
             <Link to={`/update?id=${task._id}`}>
-              <BiEdit className="task-edit-delete-icon" />
+              <BiEdit className="card-edit-delete-icon" />
             </Link>
             <Link to="/">
               <MdDeleteOutline
-                className="task-edit-delete-icon"
+                className="card-edit-delete-icon"
                 onClick={() => deleteTask(task._id)}
               />
             </Link>

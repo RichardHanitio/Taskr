@@ -6,6 +6,7 @@ const PopUp = ({open, close, children, image}) => {
 
   return (
     <Popup open={open} closeOnDocumentClick onClose={close}>
+      {/* {console.log(open)} */}
       <div className="modal">
         <a className="close" onClick={close}>
           &times;

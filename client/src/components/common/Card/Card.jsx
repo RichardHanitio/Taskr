@@ -35,12 +35,10 @@ const Card = ({task, deleteTask}) => {
             <Link to={`/update?id=${task._id}`}>
               <BiEdit className="card-edit-delete-icon" />
             </Link>
-            <Link to="/">
-              <MdDeleteOutline
-                className="card-edit-delete-icon"
-                onClick={() => deleteTask(task._id)}
-              />
-            </Link>
+            <MdDeleteOutline
+              className="card-edit-delete-icon"
+              onClick={deleteTask}
+            />
           </div>
         </div>
       </div>

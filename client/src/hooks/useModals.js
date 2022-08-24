@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import {useState} from 'react'
 
 const useModals = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -7,13 +7,14 @@ const useModals = () => {
   const closeModal = () => {
     setIsOpen(false);
   }
-  const openModal = () => setIsOpen(true);
+
   const modalContent = (image, message) => {
+    setIsOpen(true);
     setContent({image, message});
   }
 
   return {
-    closeModal, openModal, isOpen, modalContent, content
+    closeModal, isOpen, modalContent, content
   }
 }
 

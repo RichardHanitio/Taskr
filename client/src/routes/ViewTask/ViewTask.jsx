@@ -10,6 +10,10 @@ const ViewTask = () => {
   const {task, deleteTask, updateTask, isOpen, closeModal, content} = useTasks();
   const navigate = useNavigate();
 
+  const handleCardDelete = () => {
+    deleteTask(task._id)
+  }
+
   return (
     <section className="viewtask-section">
       <div className="viewtask-container">
@@ -18,7 +22,7 @@ const ViewTask = () => {
           <span>Back</span>
         </div>
 
-        <Card task={task} deleteTask={deleteTask} updateTask={updateTask} className="viewtask-card"/>
+        <Card task={task} deleteTask={handleCardDelete} updateTask={updateTask} className="viewtask-card"/>
 
         <PopUp open={isOpen} close={closeModal} image={content.image}>
           {content.message}

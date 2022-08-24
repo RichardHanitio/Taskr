@@ -7,15 +7,16 @@ import {
   httpGetTask,
 } from "./requests";
 import useModals from "../hooks/useModals";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 
 const useTasks = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [tasks, setTasks] = useState([]);
   const [task, setTask] = useState({});
   const [isLoad, setIsLoad] = useState(false);
-  const { closeModal, openModal, isOpen, modalContent, content } = useModals();
+  const { closeModal, isOpen, modalContent, content } = useModals();
   const id = searchParams.get("id");
+  const navigate = useNavigate();
 
   // GET tasks
   const getTasks = useCallback(async () => {
@@ -35,8 +36,7 @@ const useTasks = () => {
           "/assets/man-stress.png",
           err.response.data.error
         );
-        openModal();
-        console.log(err);
+        // openModal();
       });
   }, []);
 
@@ -53,7 +53,7 @@ const useTasks = () => {
             "/assets/man-stress.png",
             err.response.data.error
           );
-          openModal();
+          // openModal();
         }));
   }, []);
 
@@ -72,17 +72,18 @@ const useTasks = () => {
         .then((resp) => {
           setTasks(getTasks());
           modalContent("/assets/man-success.jpg", resp.data.msg);
-          openModal();
+          // openModal();
         })
         .catch((err) => {
           modalContent(
             "/assets/man-stress.png",
             err.response.data.error
           );
-          openModal();
+          console.log(isOpen);
+          // openModal();
         });
     },
-    [getTasks, modalContent, openModal]
+    [getTasks, modalContent, isOpen]
   );
 
   // POST task
@@ -103,7 +104,7 @@ const useTasks = () => {
         .then((resp) => {
           setTasks(getTasks());
           modalContent("/assets/man-success.jpg", resp.data.msg);
-          openModal();
+          // openModal();
           e.target.reset();
         })
         .catch((err) => {
@@ -111,10 +112,10 @@ const useTasks = () => {
             "/assets/man-stress.png",
             err.response.data.error
           );
-          openModal();
+          // openModal();
         });
     },
-    [getTasks, modalContent, openModal]
+    [getTasks, modalContent]
   );
 
   // PATCH task
@@ -134,16 +135,16 @@ const useTasks = () => {
       await httpUpdateTask(id, updatedTask)
         .then((resp) => {
           modalContent("/assets/man-success.jpg", resp.data.msg);
-          openModal();
+          // openModal();
         })
         .catch((err) => {
           modalContent(
             "/assets/man-stress.png",
             err.response.data.error
           );
-          openModal();
+          // openModal();
         });
-    },[modalContent, openModal, id]
+    },[modalContent, id]
   );
 
   return {

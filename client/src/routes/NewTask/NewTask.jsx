@@ -24,7 +24,9 @@ const NewTask = () => {
 
         <Form mode="create" createTask={createTask} className="newtask-form"/>
         
-        <div className="newtask-recent">Recently created</div>
+        {tasks.length!==0 && (
+          <div className="newtask-recent">Recently created</div>
+        )}
         
         <Tasks tasks={tasks} deleteTask={deleteTask} updateTask={updateTask} className="newtask-tasks"/>
         

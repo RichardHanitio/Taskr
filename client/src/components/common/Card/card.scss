@@ -55,7 +55,7 @@
 
       .card-caption-container {
         @include displayFlex(column, space-around);
-        flex-basis : 80%;
+        flex-basis : 85%;
         width : 100%;
 
         .card-title {
@@ -70,7 +70,7 @@
         .card-due-date {
           @include displayFlex(column, space-around);
           width : 100%;
-          height : 60px;
+          height : 70px;
 
           &-item {
             @include displayFlex(row, center, center);
@@ -89,7 +89,7 @@
         @include displayFlex(row, flex-end, center);
         height : 100%;
         width : 100%;
-        flex-basis : 20%;
+        flex-basis : 15%;
 
         &-icon {
           color : primary-color("turquoise", "700");

@@ -9,6 +9,10 @@
   color : black;
   text-decoration : none;
 
+  @include respond-to("sm"){
+    height : 50px;
+  }
+
   .task-container {
     @include displayFlex($align:center);
     height : 80%;

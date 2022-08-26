@@ -3,7 +3,7 @@ import "./form.scss";
 import Button from "../common/Button/Button";
 import moment from "moment";
 
-const Form = ({ mode, createTask, updateTask, isLoad, task, className }) => {
+const Form = ({ mode, createTask, updateTask, task, className }) => {
   if (mode === "create") {
     return (
       <div className={`${className} form`}>
@@ -47,7 +47,7 @@ const Form = ({ mode, createTask, updateTask, isLoad, task, className }) => {
         </form>
       </div>
     );
-  } else if (mode === "update" && isLoad) {
+  } else if (mode === "update") {
     return (
       <div className={`${className} form`}>
         <form className="form-container" method="post" onSubmit={updateTask}>

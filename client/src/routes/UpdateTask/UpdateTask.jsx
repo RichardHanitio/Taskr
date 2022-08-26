@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import PopUp from "../../components/common/PopUp/PopUp";
 
 const UpdateTask = () => {
-  const { task, updateTask, isLoad, isOpen, closeModal, content } = useTasks();
+  const { task, updateTask, isOpen, closeModal, content } = useTasks();
   const navigate = useNavigate();
   return (
     <section className="updatetask-section">
@@ -17,7 +17,7 @@ const UpdateTask = () => {
           <span>Back</span>
         </div>
 
-        <Form mode="update" task={task} isLoad={isLoad} updateTask={updateTask} className="updatetask-form"/>
+        <Form mode="update" task={task} updateTask={updateTask} className="updatetask-form"/>
 
         <PopUp open={isOpen} close={closeModal} image={content.image}>
           {content.message}

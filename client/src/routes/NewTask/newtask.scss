@@ -9,14 +9,27 @@
   @include respond-to("lg"){
     height : 80vh;
   }
+
   .newtask-container {
     @include displayFlex(column);
     width : 580px;
     height : 100%;
+  
+    @include respond-to("md"){
+      width : 530px;
+    }
 
+    @include respond-to("sm"){
+      width : 350px;
+    }
+    
     .newtask-form {
       height : 380px;
       width : 100%;
+
+      @include respond-to("sm"){
+        height : 330px;
+      }
     }
     
     .newtask-recent {
@@ -28,6 +41,14 @@
     .newtask-tasks {
       // form 380px anggap new task 20px
       height : calc(100% - 400px);
+
+      @include respond-to("lg") {
+        height : calc(100% - 400px - 65px - 15px);
+      }
+
+      @include respond-to("sm") {
+        height : calc(100% - 340px - 65px - 15px);
+      }
     }
   }
 }

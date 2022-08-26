@@ -4,9 +4,10 @@ import Navbar from "../../components/common/Navbar/Navbar";
 import Searchbar from "../../components/common/Searchbar/Searchbar";
 import Tasks from "../../components/Tasks/Tasks";
 import useTasks from "../../hooks/useTasks";
+import PopUp from "../../components/common/PopUp/PopUp";
 
 const ListTasks = () => {
-  const { tasks } = useTasks();
+  const { tasks, deleteTask, isOpen, closeModal, content } = useTasks();
   const [search, setSearch] = useState("");
   const [filteredAndSortedTask, setFilteredAndSortedTask] = useState(tasks);
   const [sortby, setSortby] = useState("date-created");
@@ -22,56 +23,59 @@ const ListTasks = () => {
   useEffect(() => {
     // filter
     let filteredtasks;
-    if (search !== "") {
-      filteredtasks = tasks.filter((obj) => {
-        const nameArr = obj.task.split(" ");
-        let flag = false;
-        nameArr.forEach((name) => {
-          const valid =
-            name.slice(0, search.length).toLowerCase() === search.toLowerCase();
-          if (valid) flag = true;
+
+    if(tasks) {
+      if (search !== "") {
+        filteredtasks = tasks.filter((obj) => {
+          const nameArr = obj.task.split(" ");
+          let flag = false;
+          nameArr.forEach((name) => {
+            const valid =
+              name.slice(0, search.length).toLowerCase() === search.toLowerCase();
+            if (valid) flag = true;
+          });
+          return flag;
         });
-        return flag;
-      });
-    } else {
-      filteredtasks = tasks;
-    }
+      } else {
+        filteredtasks = tasks;
+      }
 
-    // sort
-    if (sortby === "date-created") {
-      setFilteredAndSortedTask([
-        ...filteredtasks.sort((a, b) => {
-          return (
-            Number(new Date(b.dateCreated).getTime()) -
-            Number(new Date(a.dateCreated).getTime())
-          );
-        }),
-      ]);
-    } else if (sortby === "due-date") {
-      setFilteredAndSortedTask([
-        ...filteredtasks.sort((a, b) => {
-          return (
-            Number(new Date(a.dueDate).getTime()) -
-            Number(new Date(b.dueDate).getTime())
-          );
-        }),
-      ]);
-    } else if (sortby === "priority") {
-      const priorityMap = new Map();
-      priorityMap.set("high", 1);
-      priorityMap.set("medium", 2);
-      priorityMap.set("low", 3);
+      // sort
+      if (sortby === "date-created") {
+        setFilteredAndSortedTask([
+          ...filteredtasks.sort((a, b) => {
+            return (
+              Number(new Date(b.dateCreated).getTime()) -
+              Number(new Date(a.dateCreated).getTime())
+            );
+          }),
+        ]);
+      } else if (sortby === "due-date") {
+        setFilteredAndSortedTask([
+          ...filteredtasks.sort((a, b) => {
+            return (
+              Number(new Date(a.dueDate).getTime()) -
+              Number(new Date(b.dueDate).getTime())
+            );
+          }),
+        ]);
+      } else if (sortby === "priority") {
+        const priorityMap = new Map();
+        priorityMap.set("high", 1);
+        priorityMap.set("medium", 2);
+        priorityMap.set("low", 3);
 
-      setFilteredAndSortedTask([
-        ...filteredtasks.sort((a, b) => {
-          return (
-            Number(priorityMap.get(a.priority)) -
-            Number(priorityMap.get(b.priority))
-          );
-        }),
-      ]);
+        setFilteredAndSortedTask([
+          ...filteredtasks.sort((a, b) => {
+            return (
+              Number(priorityMap.get(a.priority)) -
+              Number(priorityMap.get(b.priority))
+            );
+          }),
+        ]);
+      }
     }
-  }, [search, tasks, sortby]);
+  }, [search, sortby, tasks]);
 
   return (
     <section className="listtasks-section">
@@ -88,7 +92,16 @@ const ListTasks = () => {
           </select>
         </div>
         <Navbar />
-        <Tasks tasks={filteredAndSortedTask} className="listtasks-tasks" />
+        <Tasks
+          tasks={filteredAndSortedTask}
+          className="listtasks-tasks"
+          message={search && `No tasks with name "${search}" found`}
+          deleteTask={deleteTask}
+        />
+
+        <PopUp open={isOpen} close={closeModal} image={content.image}>
+          {content.message}
+        </PopUp>
       </div>
     </section>
   );

@@ -7,84 +7,55 @@ import {
   httpGetTask,
 } from "./requests";
 import useModals from "../hooks/useModals";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 const useTasks = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [tasks, setTasks] = useState([]);
   const [task, setTask] = useState({});
-  const [isLoad, setIsLoad] = useState(false);
   const { closeModal, isOpen, modalContent, content } = useModals();
   const id = searchParams.get("id");
-  const navigate = useNavigate();
 
   // GET tasks
-  const getTasks = useCallback(async () => {
-    httpGetTasks()
-      .then((resp) => {
-        setTasks(
-          resp.data.sort((a, b) => {
-            return (
-              Number(new Date(b.dateCreated).getTime()) -
-              Number(new Date(a.dateCreated).getTime())
-            );
-          })
-        );
-      })
-      .catch((err) => {
-        modalContent(
-          "/assets/man-stress.png",
-          err.response.data.error
-        );
-        // openModal();
-      });
+  const getTasks = useCallback(async() => {
+    try {
+      const resp = await httpGetTasks();
+      setTasks(
+        resp.data.sort((a, b) => {
+          return (
+            Number(new Date(b.dateCreated).getTime()) -
+            Number(new Date(a.dateCreated).getTime())
+          );
+        })
+      )
+    } catch (err) {
+      modalContent("/assets/man-stress.png",err.response.data.error)
+    }
   }, []);
 
   // GET task
   const getTask = useCallback(async (taskId) => {
-    taskId &&
-      (await httpGetTask(taskId)
-        .then((resp) => {
-          setTask(resp.data);
-          setIsLoad(true);
-        })
-        .catch((err) => {
-          modalContent(
-            "/assets/man-stress.png",
-            err.response.data.error
-          );
-          // openModal();
-        }));
+    if(taskId!==null) {
+      try {
+        const resp = await httpGetTask(taskId);
+        setTask(resp.data);
+        return task;
+      } catch (err) {
+        modalContent("/assets/man-stress.png", err.response.data.error);
+      }
+    }
   }, []);
 
-  useEffect(() => {
-    getTasks();
-  }, [getTasks]);
-
-  useEffect(() => {
-    getTask(id);
-  }, [getTask, id]);
-
   // DELETE task
-  const deleteTask = useCallback(
-    async (taskId) => {
-      await httpDeleteTask(taskId)
-        .then((resp) => {
-          setTasks(getTasks());
-          modalContent("/assets/man-success.jpg", resp.data.msg);
-          // openModal();
-        })
-        .catch((err) => {
-          modalContent(
-            "/assets/man-stress.png",
-            err.response.data.error
-          );
-          console.log(isOpen);
-          // openModal();
-        });
-    },
-    [getTasks, modalContent, isOpen]
-  );
+  const deleteTask = useCallback(async(taskId) => {
+    try {
+      const resp = await httpDeleteTask(taskId);
+      await getTasks();
+      modalContent("/assets/man-success.jpg", resp.data.msg);
+    } catch (err) {
+      modalContent("/assets/man-stress.png", err.response.data.error);
+    }
+  },[getTasks, modalContent]);
 
   // POST task
   const createTask = useCallback(
@@ -100,22 +71,16 @@ const useTasks = () => {
 
       const dataObj = { task, desc, dueDate, priority, dateCreated };
 
-      await httpCreateTask(dataObj)
-        .then((resp) => {
-          setTasks(getTasks());
-          modalContent("/assets/man-success.jpg", resp.data.msg);
-          // openModal();
-          e.target.reset();
-        })
-        .catch((err) => {
-          modalContent(
-            "/assets/man-stress.png",
-            err.response.data.error
-          );
-          // openModal();
-        });
-    },
-    [getTasks, modalContent]
+      try {
+        const resp = await httpCreateTask(dataObj);
+        await getTasks();
+        modalContent("/assets/man-success.jpg", resp.data.msg);
+        e.target.reset();
+
+      } catch (err) {
+        modalContent("/assets/man-stress.png", err.response.data.error);
+      }
+    },[getTasks, modalContent]
   );
 
   // PATCH task
@@ -132,33 +97,33 @@ const useTasks = () => {
 
       const updatedTask = { task, desc, dueDate, priority, dateCreated };
 
-      await httpUpdateTask(id, updatedTask)
-        .then((resp) => {
-          modalContent("/assets/man-success.jpg", resp.data.msg);
-          // openModal();
-        })
-        .catch((err) => {
-          modalContent(
-            "/assets/man-stress.png",
-            err.response.data.error
-          );
-          // openModal();
-        });
+      try {
+        const resp = await httpUpdateTask(id, updatedTask);
+        modalContent("/assets/man-success.jpg", resp.data.msg);
+
+      } catch (err) {
+        modalContent("/assets/man-stress.png", err.response.data.error);
+      }
     },[modalContent, id]
   );
+
+  useEffect(() => {
+    getTasks();
+  }, [getTasks]);
+
+  useEffect(() => {
+    getTask(id);
+  }, [getTask, id]);
 
   return {
     createTask,
     updateTask,
     deleteTask,
-    getTask,
     tasks,
     task,
-    isLoad,
     isOpen,
     closeModal,
     content,
-    id
   };
 };
 

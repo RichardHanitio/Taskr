@@ -6,11 +6,11 @@ import { MdDeleteOutline } from "react-icons/md";
 import moment from "moment";
 import {Link} from "react-router-dom";
 
-const Card = ({task, deleteTask}) => {
+const Card = ({task, deleteTask, image}) => {
   return (
     <div className="card-container">
       <div className="card-left">
-        <img src="/assets/unsplash-default-img.jpg" alt="pattern" />
+        <img src={image} alt="pattern"/>
         <div
           className={`card-priority card-priority-${task.priority}`}
         ></div>

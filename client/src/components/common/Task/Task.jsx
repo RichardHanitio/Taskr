@@ -28,13 +28,10 @@ const Task = ({ task, id, description, dueDate, priority, deleteTask }) => {
         </div>
         <div className="task-update-delete">
           <Link to={`/update?id=${id}`}>
-            <BiEdit className="task-btn task-update-btn"/>
+            <BiEdit className="task-btn task-update-btn" />
           </Link>
-          <Link to="/">
-            <MdDeleteOutline
-              className="task-btn task-delete-btn"
-              onClick={deleteTask}
-            />
+          <Link to={{}} onClick={deleteTask}>
+            <MdDeleteOutline className="task-btn task-delete-btn" />
           </Link>
         </div>
       </div>

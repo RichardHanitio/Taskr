@@ -6,14 +6,12 @@ import {
   httpUpdateTask,
   httpGetTask,
 } from "./requests";
-import useModals from "../hooks/useModals";
 import { useSearchParams } from "react-router-dom";
 
-const useTasks = () => {
+const useTasks = ({modalContent}) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [tasks, setTasks] = useState([]);
   const [task, setTask] = useState({});
-  const { closeModal, isOpen, modalContent, content } = useModals();
   const id = searchParams.get("id");
 
   // GET tasks
@@ -121,9 +119,6 @@ const useTasks = () => {
     deleteTask,
     tasks,
     task,
-    isOpen,
-    closeModal,
-    content,
   };
 };
 

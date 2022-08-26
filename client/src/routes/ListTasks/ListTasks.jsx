@@ -5,9 +5,11 @@ import Searchbar from "../../components/common/Searchbar/Searchbar";
 import Tasks from "../../components/Tasks/Tasks";
 import useTasks from "../../hooks/useTasks";
 import PopUp from "../../components/common/PopUp/PopUp";
+import useModals from "../../hooks/useModals";
 
 const ListTasks = () => {
-  const { tasks, deleteTask, isOpen, closeModal, content } = useTasks();
+  const { isOpen, closeModal, modalContent, content } = useModals();
+  const { tasks, deleteTask } = useTasks({modalContent});
   const [search, setSearch] = useState("");
   const [filteredAndSortedTask, setFilteredAndSortedTask] = useState(tasks);
   const [sortby, setSortby] = useState("date-created");

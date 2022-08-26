@@ -5,9 +5,12 @@ import useTasks from "../../hooks/useTasks";
 import { IoChevronBackCircleSharp } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import PopUp from "../../components/common/PopUp/PopUp";
+import useModals from "../../hooks/useModals";
 
 const UpdateTask = () => {
-  const { task, updateTask, isOpen, closeModal, content } = useTasks();
+  const { isOpen, closeModal, modalContent, content } = useModals();
+
+  const { task, updateTask} = useTasks({modalContent});
   const navigate = useNavigate();
   return (
     <section className="updatetask-section">

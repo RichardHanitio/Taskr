@@ -6,9 +6,11 @@ import Card from "../../components/common/Card/Card";
 import useTasks from "../../hooks/useTasks";
 import PopUp from "../../components/common/PopUp/PopUp";
 import axios from "axios";
+import useModals from "../../hooks/useModals";
 
 const ViewTask = () => {
-  const {deleteTask, updateTask, isOpen, closeModal, content, task} = useTasks();
+  const { isOpen, closeModal, modalContent, content } = useModals();
+  const {deleteTask, updateTask, task} = useTasks({modalContent});
   const [image, setImage] = useState("");
   const navigate = useNavigate();
 

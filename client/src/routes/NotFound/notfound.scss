@@ -1,0 +1,32 @@
+@import "../../config";
+
+.notfound-section {
+  @include displayFlex(row, center, center);
+  height : 100vh;
+  min-width : 60vw;
+
+  .notfound-container {
+    width : 600px;
+    text-align : center;
+    color : white;
+    height : 240px;
+    @include displayFlex(column, space-around, center);
+
+    .notfound-title {
+      font-size : 120px;
+    }
+
+    .notfound-subtitle {
+      font-size : 26px;
+    }
+
+    .notfound-cta {
+      font-size : 18px;
+      
+      &-link {
+        color : accent-color("info", "700");
+        font-weight : bold;
+      }
+    }
+  }
+}

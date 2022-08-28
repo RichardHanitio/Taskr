@@ -10,6 +10,13 @@
     @include displayFlex(column);
     width : 580px;
     height : 100%;
+    @include respond-to("md") {
+      width : 530px;
+    }
+
+    @include respond-to("sm") {
+      width : 350px;
+    }
 
     .listtasks-searchbar {
       height : 45px;
@@ -37,6 +44,15 @@
     
     .listtasks-tasks {
       height : calc(100% - 50px - 45px);
+
+      @include respond-to("lg") {
+        height : calc(100% - 50px - 45px - 65px - 70px);
+      }
+
+      @include respond-to("sm") {
+        height : calc(100% - 50px - 45px - 65px - 40px);
+      }
+
     }
   }
 }

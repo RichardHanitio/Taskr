@@ -7,7 +7,7 @@ const UpdateTask = lazy(() => import("./routes/UpdateTask/UpdateTask"));
 const ListTasks = lazy(() => import("./routes/ListTasks/ListTasks"));
 const Calendar = lazy(() => import("./routes/Calendar/Calendar"));
 const ViewTask = lazy(() => import("./routes/ViewTask/ViewTask"));
-
+const NotFound = lazy(() => import("./routes/NotFound/NotFound"))
 
 const App = () => {
   return (
@@ -29,6 +29,7 @@ const App = () => {
                 <Route index element={<ViewTask />} />
               </Route>
             </Route>
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
       </Router>

@@ -41,8 +41,7 @@ h1 {
     }
 
     @include respond-to("sm") {
-      top : 15px;
-      height : 35px;
+      display : none;
     }
   }
 }

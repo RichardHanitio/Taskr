@@ -4,8 +4,30 @@
   width : 800px;
   height : 600px;
   align-self : center;
-}
-.calendar-container {
-  width : 100%;
-  height : 100%;
+  
+  @include respond-to("xl") {
+    width : 650px;
+    height : 600px;
+  }
+
+  @include respond-to("lg") {
+    width : 700px;
+    height : 600px;
+  }
+
+  @include respond-to("md") {
+    width : 520px;
+  }
+
+  @include respond-to("sm") {
+    width : 350px;
+    height : 530px;
+    align-self : start;
+    margin-top : 20px;
+  }
+
+  .calendar-iframe {
+    width : 100%;
+    height : 100%;
+  }
 }

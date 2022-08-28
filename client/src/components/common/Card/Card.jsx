@@ -10,12 +10,15 @@ const Card = ({task, deleteTask, image}) => {
   return (
     <div className="card-container">
       <div className="card-left">
-        <img src={image} alt="pattern"/>
+        <img src={image} alt="pattern" />
         <div
-          className={`card-priority card-priority-${task.priority}`}
+          className={`card-priority card-priority-${task.priority} card-priority-left`}
         ></div>
       </div>
       <div className="card-right">
+        <div
+          className={`card-priority card-priority-${task.priority} card-priority-right`}
+        ></div>
         <div className="card-right-container">
           <div className="card-caption-container">
             <h1 className="card-title">{task.task}</h1>
@@ -35,10 +38,12 @@ const Card = ({task, deleteTask, image}) => {
             <Link to={`/update?id=${task._id}`}>
               <BiEdit className="card-edit-delete-icon" />
             </Link>
-            <MdDeleteOutline
-              className="card-edit-delete-icon"
-              onClick={deleteTask}
-            />
+            <div>
+              <MdDeleteOutline
+                className="card-edit-delete-icon"
+                onClick={deleteTask}
+              />
+            </div>
           </div>
         </div>
       </div>

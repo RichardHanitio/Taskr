@@ -4,7 +4,7 @@ const http = require("http");
 const app = require("./app");
 const connectDB = require("./db");
 
-const port = process.env.PORT;
+const port = process.env.PORT || 5000;
 
 const myServer = http.createServer(app);
 

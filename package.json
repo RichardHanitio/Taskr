@@ -5,14 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "npm run test --prefix server && npm npm run test --prefix client",
-    "install-server" : "npm install --prefix server",
-    "install-client" : "npm install --prefix client",
-    "install" : "npm run install-server && npm run install-client",
+    "install-server": "npm install --prefix server",
+    "install-client": "npm install --prefix client",
+    "install": "npm run install-server && npm run install-client",
     "server": "npm run watch --prefix server",
     "client": "npm start --prefix client",
     "watch": "concurrently \"npm run server\" \"npm run client\"",
     "deploy": "npm run build --prefix client && npm start --prefix server",
-    "start" : "npm start --prefix server"
+    "start": "npm start --prefix server"
   },
   "repository": {
     "type": "git",
@@ -24,5 +24,8 @@
   "bugs": {
     "url": "https://github.com/RichardHanitio/Taskr/issues"
   },
-  "homepage": "https://github.com/RichardHanitio/Taskr#readme"
+  "homepage": "https://github.com/RichardHanitio/Taskr#readme",
+  "dependencies": {
+    "dotenv": "^16.0.2"
+  }
 }

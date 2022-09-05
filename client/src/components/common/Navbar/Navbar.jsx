@@ -2,8 +2,8 @@ import React from 'react'
 import "./navbar.scss";
 import { AiOutlinePlus, AiFillCalendar, AiFillSetting } from "react-icons/ai";
 import {FaClipboardList} from "react-icons/fa";
-import {RiStickyNoteFill} from "react-icons/ri";
-import {Link} from "react-router-dom"
+import { RiArchiveDrawerFill } from "react-icons/ri";
+import {Link} from "react-router-dom";
 
 
 const Navbar = () => {
@@ -22,9 +22,9 @@ const Navbar = () => {
           </Link>
         </ul>
         <ul className="navbar-bottom-btn">
-          <li>
-            <RiStickyNoteFill className="navbar-icon" />
-          </li>
+          <Link to="/archived" >
+            <RiArchiveDrawerFill className="navbar-icon" />
+          </Link>
           <li>
             <AiFillSetting className="navbar-icon" />
           </li>

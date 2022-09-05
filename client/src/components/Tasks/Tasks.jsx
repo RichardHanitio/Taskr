@@ -2,7 +2,7 @@ import React from "react";
 import "./tasks.scss";
 import Task from "../common/Task/Task";
 
-const Tasks = ({deleteTask, updateTask, tasks, className, message}) => {
+const Tasks = ({archiveTask, updateTask, tasks, className, message}) => {
   return (
     <div className={`${className} tasks`}>
       {tasks.length === 0 && (
@@ -26,7 +26,8 @@ const Tasks = ({deleteTask, updateTask, tasks, className, message}) => {
                     description={task.desc}
                     dueDate={date.toLocaleString()}
                     priority={task.priority}
-                    deleteTask={() => deleteTask(task._id)}
+                    dateArchived={task.dateArchived}
+                    archiveTask={() => archiveTask(task._id)}
                     updateTask = {() => updateTask(task._id)}
                   />
                 );

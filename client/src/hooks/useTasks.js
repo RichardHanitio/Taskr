@@ -5,17 +5,20 @@ import {
   httpDeleteTask,
   httpUpdateTask,
   httpGetTask,
+  httpGetArchivedTasks,
+  httpClearArchivedTasks
 } from "./requests";
 import { useSearchParams } from "react-router-dom";
 
 const useTasks = ({modalContent}) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [tasks, setTasks] = useState([]);
+  const [archivedTasks, setArchivedTasks] = useState([]);
   const [task, setTask] = useState({});
   const id = searchParams.get("id");
 
   // GET tasks
-  const getTasks = useCallback(async() => {
+  const getTasks = useCallback(async () => {
     try {
       const resp = await httpGetTasks();
       setTasks(
@@ -25,15 +28,51 @@ const useTasks = ({modalContent}) => {
             Number(new Date(a.dateCreated).getTime())
           );
         })
-      )
+      );
     } catch (err) {
-      modalContent("/assets/man-stress.png",err.response.data.error)
+      modalContent("/assets/man-stress.png", err.response.data.error);
     }
   }, []);
 
+  // GET archived tasks
+  const getArchivedTasks = useCallback(async () => {
+    try {
+      const resp = await httpGetArchivedTasks();
+      setArchivedTasks(
+        resp.data.sort((a, b) => {
+          return (
+            Number(new Date(b.dateCreated).getTime()) -
+            Number(new Date(a.dateCreated).getTime())
+          );
+        })
+      );
+    } catch (err) {
+      modalContent("/assets/man-stress.png", err.response.data.error);
+    }
+  }, []);
+
+  // DELETE archived tasks
+  const clearArchivedTasks = useCallback(async() => {
+    try {
+      const resp = await httpClearArchivedTasks();
+      getArchivedTasks();
+      modalContent("/assets/man-success.png", resp.data.msg);
+    } catch (err) {
+      modalContent("/assets/man-stress.png", err.response.data.error);
+    }
+  }, [modalContent, getArchivedTasks]);
+
+  const restoreArchivedTask = useCallback(async(taskId) => {
+    try {
+      
+    } catch (err) {
+
+    }
+  })
+
   // GET task
   const getTask = useCallback(async (taskId) => {
-    if(taskId!==null) {
+    if (taskId !== null) {
       try {
         const resp = await httpGetTask(taskId);
         setTask(resp.data);
@@ -45,15 +84,18 @@ const useTasks = ({modalContent}) => {
   }, []);
 
   // DELETE task
-  const deleteTask = useCallback(async(taskId) => {
-    try {
-      const resp = await httpDeleteTask(taskId);
-      await getTasks();
-      modalContent("/assets/man-success.jpg", resp.data.msg);
-    } catch (err) {
-      modalContent("/assets/man-stress.png", err.response.data.error);
-    }
-  },[getTasks, modalContent]);
+  const deleteTask = useCallback(
+    async (taskId) => {
+      try {
+        const resp = await httpDeleteTask(taskId);
+        await getTasks();
+        modalContent("/assets/man-success.jpg", resp.data.msg);
+      } catch (err) {
+        modalContent("/assets/man-stress.png", err.response.data.error);
+      }
+    },
+    [getTasks, modalContent]
+  );
 
   // POST task
   const createTask = useCallback(
@@ -74,11 +116,11 @@ const useTasks = ({modalContent}) => {
         await getTasks();
         modalContent("/assets/man-success.jpg", resp.data.msg);
         e.target.reset();
-
       } catch (err) {
         modalContent("/assets/man-stress.png", err.response.data.error);
       }
-    },[getTasks, modalContent]
+    },
+    [getTasks, modalContent]
   );
 
   // PATCH task
@@ -98,16 +140,31 @@ const useTasks = ({modalContent}) => {
       try {
         const resp = await httpUpdateTask(id, updatedTask);
         modalContent("/assets/man-success.jpg", resp.data.msg);
-
       } catch (err) {
         modalContent("/assets/man-stress.png", err.response.data.error);
       }
-    },[modalContent, id]
+    },
+    [modalContent, id]
+  );
+
+  const archiveTask = useCallback(
+    async (taskId) => {
+      const dateArchived = new Date();
+      try {
+        const resp = await httpUpdateTask(taskId, { dateArchived });
+        await getTasks();
+        modalContent("/assets/man-success.jpg", resp.data.msg);
+      } catch (err) {
+        modalContent("/assets/man-stress.png", err.response.data.error);
+      }
+    },
+    [modalContent]
   );
 
   useEffect(() => {
     getTasks();
-  }, [getTasks]);
+    getArchivedTasks();
+  }, [getTasks, getArchivedTasks]);
 
   useEffect(() => {
     getTask(id);
@@ -117,8 +174,11 @@ const useTasks = ({modalContent}) => {
     createTask,
     updateTask,
     deleteTask,
+    archiveTask,
     tasks,
     task,
+    archivedTasks,
+    clearArchivedTasks
   };
 };
 

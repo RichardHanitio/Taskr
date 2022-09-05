@@ -76,7 +76,7 @@
       }
     }
 
-    .task-update-delete {
+    .task-update-archive {
       @include displayFlex(row, space-around, center);
       flex-basis : 15%;
       height : 100%;
@@ -93,6 +93,10 @@
         &:hover {
           color : primary-color("turquoise", "800");
         }
+      }
+
+      .task-archive-btn {
+        font-size : 23px;
       }
     }
   }

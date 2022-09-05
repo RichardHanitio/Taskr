@@ -1,0 +1,77 @@
+@import "../../config";
+
+.archivedtasks-section {
+  @include displayFlex(row, center, center);
+  align-self : center;
+  height : 95vh;
+  min-width : 38vw;
+  
+  .archivedtasks-container {
+    @include displayFlex(column);
+    width : 580px;
+    height : 100%;
+    @include respond-to("md") {
+      width : 530px;
+    }
+
+    @include respond-to("sm") {
+      width : 350px;
+    }
+
+    .archivedtasks-title {
+      @include displayFlex(row, flex-start, center);
+      height : 60px;
+      width : 100%;
+      font-size : 20px;
+      color : white;
+    }
+
+    .archivedtasks-info {
+      @include displayFlex(row, center, center);
+      height : 40px;
+      width : 100%;
+      background-color : accent-color("info", "500");
+      border-radius : 5px;
+      margin-bottom : 20px;
+
+      &-container {
+        @include displayFlex(row, space-between, center);
+        width : 95%;
+      }
+
+      span {
+        font-size : 14px;
+        color : white;
+      }
+
+      .archivedtasks-info-cta {
+        font-size : 16px;
+
+        &:hover {
+          cursor : pointer;
+          font-weight : 500;
+        }
+      }
+
+      select {
+        outline : none;
+        border : 1px solid primary-color("turquoise", "700");
+        border-radius : 3px;
+        padding : 5px;
+      }
+    }
+    
+    .archivedtasks-tasks {
+      height : calc(100% - 60px - 60px);
+
+      @include respond-to("lg") {
+        height : calc(100% - 60px - 60px - 65px - 70px);
+      }
+
+      @include respond-to("sm") {
+        height : calc(100% - 60px - 60px - 65px - 40px);
+      }
+
+    }
+  }
+}

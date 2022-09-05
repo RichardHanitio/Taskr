@@ -1,9 +1,18 @@
 import axios from "axios";
-const API_URL = "https://taskr-tasktracker.herokuapp.com/api/v1" || "http://localhost:5000/api/v1";
+// const API_URL = "https://taskr-tasktracker.herokuapp.com/api/v1" || "http://localhost:5000/api/v1";
+const API_URL = "http://localhost:5000/api/v1";
 
 const httpGetTasks = async () => {
   return await axios.get(`${API_URL}/tasks`);
 };
+
+const httpGetArchivedTasks = async () => {
+  return await axios.get(`${API_URL}/tasks/archived`);
+};
+
+const httpClearArchivedTasks = async () => {
+  return await axios.delete(`${API_URL}/tasks/archived`);
+}
 
 const httpCreateTask = async (task) => {
   return await axios.post(`${API_URL}/tasks`, task);
@@ -27,4 +36,6 @@ export {
   httpDeleteTask,
   httpUpdateTask,
   httpGetTask,
+  httpGetArchivedTasks,
+  httpClearArchivedTasks
 };

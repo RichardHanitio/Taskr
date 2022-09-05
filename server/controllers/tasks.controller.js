@@ -3,7 +3,7 @@ const calendar = require("../calendar");
 
 const getAllTasks = async (req, res) => {
   try {
-    const tasks = await Task.find({});
+    const tasks = await Task.where("dateArchived").equals(undefined);
     if (!tasks) {
       return res.status(404).json({ error: "No task found" });
     }
@@ -12,6 +12,54 @@ const getAllTasks = async (req, res) => {
     res.status(500).json({ error: "Something went wrong, please try again" });
   }
 };
+
+const getAllArchivedTasks = async (req, res) => {
+  try {
+    const tasks = await Task.where("dateArchived").ne(undefined);
+    if (!tasks) {
+      return res.status(404).json({ error: "No task found" });
+    }
+    res.status(200).json(tasks);
+  } catch (err) {
+    res.status(500).json({ error: "Something went wrong, please try again" });
+  }
+}
+
+const clearArchivedTasks = async(req, res) => {
+  try {
+    const deletedTasks = await Task.deleteMany({})
+    if(deletedTasks.acknowledged){
+      return res.status(200).json({msg : "Tasks cleared successfully"});
+    }
+  } catch(err) {
+    res.status(500).json({ error: "Something went wrong, please try again" });
+  }
+}
+
+const restoreArchivedTask = async(req, res) => {
+  try {
+    const {id} = req.params;
+    const task = await findOneAndUpdate({_id: id}, {"task":"coba restore"}, {
+      new : true,
+      runValidators : true,
+    })
+    if(!task) {
+      return res.status(404).json({ error: "No task found" });
+    }
+    res.status(200).json({msg: "Task restored successfully"});
+
+  } catch (err) {
+    res.status(500).json({ error: "Something went wrong, please try again" });
+  }
+}
+
+const deleteArchivedTask = async(req, res) => {
+  try {
+
+  } catch (err) {
+
+  }
+}
 
 const createTask = async (req, res) => {
   try {
@@ -107,42 +155,46 @@ const updateTask = async (req, res) => {
       return res.status(404).json({ error: `No task with id ${id} found` });
     }
 
-    const { task: taskName, desc, dueDate, priority } = req.body;
+    if(!req.body.dateArchived) {
+      const { task: taskName, desc, dueDate, priority } = req.body;
 
-    let priorityColorCode;
-    if (priority === "high") {
-      priorityColorCode = "11";
-    } else if (priority === "medium") {
-      priorityColorCode = "5";
-    } else if (priority === "low") {
-      priorityColorCode = "10";
-    }
-
-    let calendarTask = {
-      summary: taskName,
-      description: desc,
-      start: {
-        dateTime: new Date(dueDate.toLocaleString()),
-        timeZone: "Asia/Jakarta",
-      },
-      end: {
-        dateTime: new Date(dueDate.toLocaleString()),
-        timeZone: "Asia/Jakarta",
-      },
-      colorId: priorityColorCode,
-    };
-
-    calendar.events.patch(
-      { calendarId: "primary", eventId: id, resource: calendarTask },
-      (err) => {
-        if (err) {
-          console.log(err);
-          return;
-        }
+      let priorityColorCode;
+      if (priority === "high") {
+        priorityColorCode = "11";
+      } else if (priority === "medium") {
+        priorityColorCode = "5";
+      } else if (priority === "low") {
+        priorityColorCode = "10";
       }
-    );
 
-    res.status(200).json({ msg: "Task updated successfully", task });
+      let calendarTask = {
+        summary: taskName,
+        description: desc,
+        start: {
+          dateTime: new Date(dueDate.toLocaleString()),
+          timeZone: "Asia/Jakarta",
+        },
+        end: {
+          dateTime: new Date(dueDate.toLocaleString()),
+          timeZone: "Asia/Jakarta",
+        },
+        colorId: priorityColorCode,
+      };
+
+      calendar.events.patch(
+        { calendarId: "primary", eventId: id, resource: calendarTask },
+        (err) => {
+          if (err) {
+            console.log(err);
+            return;
+          }
+        }
+      );
+      return res.status(200).json({ msg: "Task updated successfully", task });
+    }
+    return res.status(200).json({ msg: "Task archived successfully", task });
+
+
   } catch (err) {
     res.status(500).json({ error: "Something went wrong, please try again" });
   }
@@ -170,4 +222,4 @@ const deleteTask = async (req, res) => {
   }
 };
 
-module.exports = { getAllTasks, createTask, getTask, updateTask, deleteTask };
+module.exports = { getAllTasks, createTask, getTask, updateTask, deleteTask, getAllArchivedTasks, clearArchivedTasks, restoreArchivedTask, deleteArchivedTask };

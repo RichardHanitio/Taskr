@@ -10,7 +10,7 @@ import useModals from "../../hooks/useModals";
 const NewTask = () => {
   const { isOpen, closeModal, modalContent, content } = useModals();
 
-  const { tasks, createTask, deleteTask, updateTask } = useTasks({
+  const { tasks, createTask, archiveTask, updateTask } = useTasks({
     modalContent,
   });
 
@@ -27,7 +27,7 @@ const NewTask = () => {
 
         <Tasks
           tasks={tasks}
-          deleteTask={deleteTask}
+          archiveTask = {archiveTask}
           updateTask={updateTask}
           className="newtask-tasks"
         />

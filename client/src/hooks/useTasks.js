@@ -6,7 +6,8 @@ import {
   httpUpdateTask,
   httpGetTask,
   httpGetArchivedTasks,
-  httpClearArchivedTasks
+  httpClearArchivedTasks,
+  httpRestoreTask
 } from "./requests";
 import { useSearchParams } from "react-router-dom";
 
@@ -64,11 +65,13 @@ const useTasks = ({modalContent}) => {
 
   const restoreArchivedTask = useCallback(async(taskId) => {
     try {
-      
+      const resp = await httpRestoreTask(taskId);
+      getArchivedTasks();
+      modalContent("/assets/man-success.png", resp.data.msg);
     } catch (err) {
-
+      modalContent("/assets/man-stress.png", err.response.data.error);
     }
-  })
+  }, [modalContent, getArchivedTasks]);
 
   // GET task
   const getTask = useCallback(async (taskId) => {
@@ -88,7 +91,7 @@ const useTasks = ({modalContent}) => {
     async (taskId) => {
       try {
         const resp = await httpDeleteTask(taskId);
-        await getTasks();
+        await getArchivedTasks();
         modalContent("/assets/man-success.jpg", resp.data.msg);
       } catch (err) {
         modalContent("/assets/man-stress.png", err.response.data.error);
@@ -158,7 +161,7 @@ const useTasks = ({modalContent}) => {
         modalContent("/assets/man-stress.png", err.response.data.error);
       }
     },
-    [modalContent]
+    [modalContent, getTasks]
   );
 
   useEffect(() => {
@@ -178,7 +181,8 @@ const useTasks = ({modalContent}) => {
     tasks,
     task,
     archivedTasks,
-    clearArchivedTasks
+    clearArchivedTasks,
+    restoreArchivedTask
   };
 };
 

@@ -27,7 +27,7 @@ const getAllArchivedTasks = async (req, res) => {
 
 const clearArchivedTasks = async(req, res) => {
   try {
-    const deletedTasks = await Task.deleteMany({})
+    const deletedTasks = await Task.deleteMany({dateArchived: {$ne: undefined}})
     if(deletedTasks.acknowledged){
       return res.status(200).json({msg : "Tasks cleared successfully"});
     }
@@ -39,27 +39,20 @@ const clearArchivedTasks = async(req, res) => {
 const restoreArchivedTask = async(req, res) => {
   try {
     const {id} = req.params;
-    const task = await findOneAndUpdate({_id: id}, {"task":"coba restore"}, {
+    const task = await Task.findOneAndUpdate({_id: id}, {dateArchived: ""}, {
       new : true,
       runValidators : true,
     })
     if(!task) {
       return res.status(404).json({ error: "No task found" });
     }
-    res.status(200).json({msg: "Task restored successfully"});
+    res.status(200).json({msg: "Task restored successfully", task});
 
   } catch (err) {
     res.status(500).json({ error: "Something went wrong, please try again" });
   }
 }
 
-const deleteArchivedTask = async(req, res) => {
-  try {
-
-  } catch (err) {
-
-  }
-}
 
 const createTask = async (req, res) => {
   try {
@@ -222,4 +215,4 @@ const deleteTask = async (req, res) => {
   }
 };
 
-module.exports = { getAllTasks, createTask, getTask, updateTask, deleteTask, getAllArchivedTasks, clearArchivedTasks, restoreArchivedTask, deleteArchivedTask };
+module.exports = { getAllTasks, createTask, getTask, updateTask, deleteTask, getAllArchivedTasks, clearArchivedTasks, restoreArchivedTask };

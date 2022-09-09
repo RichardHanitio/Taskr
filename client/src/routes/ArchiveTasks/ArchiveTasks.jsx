@@ -8,7 +8,7 @@ import useModals from "../../hooks/useModals";
 
 const ArchiveTasks = () => {
   const {isOpen, closeModal, modalContent, content} = useModals();
-  const {archivedTasks} = useTasks({modalContent});
+  const {archivedTasks, clearArchivedTasks, deleteTask, restoreArchivedTask} = useTasks({modalContent});
   return (
     <section className="archivedtasks-section">
       <div className="archivedtasks-container">
@@ -16,11 +16,11 @@ const ArchiveTasks = () => {
         <div className="archivedtasks-info">
           <div className="archivedtasks-info-container">
             <span className="archivedtasks-info-notif">Tasks archived are deleted forever after 30 days</span> 
-            <span className="archivedtasks-info-cta">Clear Archive</span>
+            <span className="archivedtasks-info-cta" onClick={clearArchivedTasks}>Clear Archive</span>
           </div>
         </div>
         <Navbar />
-        <Tasks tasks={archivedTasks} className="archivedtasks-tasks"/>
+        <Tasks tasks={archivedTasks} className="archivedtasks-tasks" deleteTask={deleteTask} restoreTask={restoreArchivedTask}/>
 
         <PopUp open={isOpen} close={closeModal} image={content.image}>
           {content.message}

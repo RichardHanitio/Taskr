@@ -14,12 +14,16 @@ const httpClearArchivedTasks = async () => {
   return await axios.delete(`${API_URL}/tasks/archived`);
 }
 
+const httpRestoreTask = async(taskId) => {
+  return await axios.patch(`${API_URL}/tasks/archived/${taskId}`);
+}
+
 const httpCreateTask = async (task) => {
   return await axios.post(`${API_URL}/tasks`, task);
 };
 
 const httpDeleteTask = async (taskID) => {
-  return await axios.delete(`${API_URL}/tasks/${taskID}`);
+  return await axios.delete(`${API_URL}/tasks/archived/${taskID}`);
 };
 
 const httpGetTask = async (taskID) => {
@@ -37,5 +41,6 @@ export {
   httpUpdateTask,
   httpGetTask,
   httpGetArchivedTasks,
-  httpClearArchivedTasks
+  httpClearArchivedTasks,
+  httpRestoreTask,
 };

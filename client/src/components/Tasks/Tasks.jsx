@@ -1,6 +1,6 @@
 import React from "react";
-import "./tasks.scss";
 import Task from "../common/Task/Task";
+import "./tasks.scss";
 
 const Tasks = ({archiveTask, updateTask, tasks, className, deleteTask, message, restoreTask}) => {
   return (
@@ -20,13 +20,16 @@ const Tasks = ({archiveTask, updateTask, tasks, className, deleteTask, message, 
                 const date = new Date(task.dueDate);
                 return (
                   <Task
+                    //property
                     key={task._id}
-                    task={task.task}
                     id={task._id}
+                    task={task.task}
                     description={task.desc}
                     dueDate={date.toLocaleString()}
                     priority={task.priority}
                     dateArchived={task.dateArchived}
+                    
+                    //method
                     archiveTask={() => archiveTask(task._id)}
                     updateTask = {() => updateTask(task._id)}
                     deleteTask = {() => deleteTask(task._id)}

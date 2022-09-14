@@ -9,7 +9,7 @@ import useModals from "../../hooks/useModals";
 
 const ListTasks = () => {
   const { isOpen, closeModal, modalContent, content } = useModals();
-  const { tasks, deleteTask } = useTasks({modalContent});
+  const { tasks, deleteTask, archiveTask } = useTasks({modalContent});
   const [search, setSearch] = useState("");
   const [filteredAndSortedTask, setFilteredAndSortedTask] = useState(tasks);
   const [sortby, setSortby] = useState("date-created");
@@ -99,6 +99,7 @@ const ListTasks = () => {
           className="listtasks-tasks"
           message={search && `No tasks with name "${search}" found`}
           deleteTask={deleteTask}
+          archiveTask={archiveTask}
         />
 
         <PopUp open={isOpen} close={closeModal} image={content.image}>

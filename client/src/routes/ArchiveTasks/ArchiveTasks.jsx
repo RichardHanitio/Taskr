@@ -13,14 +13,29 @@ const ArchiveTasks = () => {
     <section className="archivedtasks-section">
       <div className="archivedtasks-container">
         <div className="archivedtasks-title">Archived Tasks</div>
-        <div className="archivedtasks-info">
-          <div className="archivedtasks-info-container">
-            <span className="archivedtasks-info-notif">Tasks archived are deleted forever after 30 days</span> 
-            <span className="archivedtasks-info-cta" onClick={clearArchivedTasks}>Clear Archive</span>
+        {archivedTasks.length > 0 && (
+          <div className="archivedtasks-info">
+            <div className="archivedtasks-info-container">
+              <span className="archivedtasks-info-notif">
+                Tasks archived are deleted forever after 30 days
+              </span>
+              <span
+                className="archivedtasks-info-cta"
+                onClick={clearArchivedTasks}
+              >
+                Clear Archive
+              </span>
+            </div>
           </div>
-        </div>
+        )}
         <Navbar />
-        <Tasks tasks={archivedTasks} className="archivedtasks-tasks" deleteTask={deleteTask} restoreTask={restoreArchivedTask}/>
+        <Tasks
+          tasks={archivedTasks}
+          className="archivedtasks-tasks"
+          deleteTask={deleteTask}
+          restoreTask={restoreArchivedTask}
+          message="No task archived (⁠.⁠ ⁠❛⁠ ⁠ᴗ⁠ ⁠❛⁠.⁠)"
+        />
 
         <PopUp open={isOpen} close={closeModal} image={content.image}>
           {content.message}

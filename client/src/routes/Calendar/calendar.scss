@@ -26,6 +26,20 @@
     margin-top : 20px;
   }
 
+  .calendar-sign-in {
+    @include displayFlex(column, space-around, center);
+    height : 100px;
+    
+    &-prompt {
+      color : white;
+    }
+
+    .calendar-google-logo {
+      font-size : 25px;
+      margin-right : 12px;
+    }
+  }
+
   .calendar-iframe {
     width : 100%;
     height : 100%;

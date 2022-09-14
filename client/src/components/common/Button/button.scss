@@ -1,12 +1,14 @@
 @import "../../../config";
 
 .button {
+  @include displayFlex(row, center, center);
   border : none;
   border-radius : 5px;
   color : white;
   font-size : 16px;
   font-weight : 500;
   box-shadow : 0 2px 5px primary-color("turquoise", "700"); 
+
   &:hover {
     cursor : pointer;
   }
@@ -22,6 +24,19 @@
     }
     &:active {
       background-color : primary-color("turquoise", "800");
+    }
+  }
+
+  &-secondary {
+    background-color : white;
+    color : primary-color("turquoise", "700");
+  
+    &:hover {
+      background-color : #f1f1f1;
+    }
+
+    &:active {
+      background-color : #e8e8e8;
     }
   }
 }

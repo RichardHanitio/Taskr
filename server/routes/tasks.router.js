@@ -16,7 +16,11 @@ tasksRouter
   .route("/archived")
   .get(getAllArchivedTasks)
   .delete(clearArchivedTasks);
-tasksRouter.route("/archived/:id").patch(restoreArchivedTask).delete(deleteTask).get(getTask);
+tasksRouter
+  .route("/archived/:id")
+  .patch(restoreArchivedTask)
+  .delete(deleteTask)
+  .get(getTask);
 
 tasksRouter.route("/:id").get(getTask).patch(updateTask);
 

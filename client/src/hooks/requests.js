@@ -1,6 +1,7 @@
 import axios from "axios";
+// require("dotenv").config();
 // const API_URL = "https://taskr-tasktracker.herokuapp.com/api/v1" || "http://localhost:5000/api/v1";
-const API_URL = "http://localhost:5000/api/v1";
+const API_URL = "https://taskr-tasktracker.herokuapp.com/api/v1";
 
 const httpGetTasks = async () => {
   return await axios.get(`${API_URL}/tasks`);

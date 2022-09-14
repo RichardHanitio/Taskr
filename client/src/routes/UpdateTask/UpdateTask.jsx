@@ -9,9 +9,9 @@ import useModals from "../../hooks/useModals";
 
 const UpdateTask = () => {
   const { isOpen, closeModal, modalContent, content } = useModals();
-
   const { task, updateTask} = useTasks({modalContent});
   const navigate = useNavigate();
+  
   return (
     <section className="updatetask-section">
       <div className="updatetask-container">

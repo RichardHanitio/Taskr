@@ -79,7 +79,6 @@ const useTasks = ({modalContent}) => {
       try {
         const resp = await httpGetTask(taskId);
         setTask(resp.data);
-        return task;
       } catch (err) {
         modalContent("/assets/man-stress.png", err.response.data.error);
       }

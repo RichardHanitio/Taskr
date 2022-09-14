@@ -47,7 +47,7 @@ const Form = ({ mode, createTask, updateTask, task, className }) => {
         </form>
       </div>
     );
-  } else if (mode === "update") {
+  } else if (mode === "update" && Object.keys(task).length > 0) {
     return (
       <div className={`${className} form`}>
         <form className="form-container" method="post" onSubmit={updateTask}>

@@ -13,7 +13,7 @@ const Task = ({ task, id, description, dueDate, priority, dateArchived, deleteTa
   const formatDate = (d) => {
     const date = new Date(d);
     const now = new Date();
-    if (date.getDate() !== now.getDate()) {
+    if (moment(date).format("l") !== moment(now).format("l")) {
       return moment(date).format("llll");
     }
     return moment(date).format("[Today, ]lll");

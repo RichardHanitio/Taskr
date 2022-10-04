@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const moment = require("moment");
 
 const taskSchema = new mongoose.Schema({
   task : {
@@ -27,5 +28,14 @@ const taskSchema = new mongoose.Schema({
     required: false
   }
 })
+
+// taskSchema.methods.deleteArchiveOnDateArchived = async function() {
+//   const thirtyDaysAgoToday = moment().subtract(10, "days").format("L");
+//   const dateArchived = this.dateArchived.format("L");
+//   if(thirtyDaysAgoToday === dateArchived) {
+//     await this.findOneAndDelete({_id: this._id});
+//   }
+//   console.log("yo");
+// }
 
 module.exports = mongoose.model("Task", taskSchema);

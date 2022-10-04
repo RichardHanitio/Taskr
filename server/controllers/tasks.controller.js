@@ -16,6 +16,7 @@ const getAllTasks = async (req, res) => {
 const getAllArchivedTasks = async (req, res) => {
   try {
     const tasks = await Task.where("dateArchived").ne(undefined);
+
     if (!tasks) {
       return res.status(404).json({ error: "No task found" });
     }

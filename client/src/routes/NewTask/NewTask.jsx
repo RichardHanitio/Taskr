@@ -2,15 +2,14 @@ import React from "react";
 import "./newtask.scss";
 import Navbar from "../../components/common/Navbar/Navbar";
 import Form from "../../components/Form/Form";
-import Tasks from "../../components/Tasks/Tasks";
 import useTasks from "../../hooks/useTasks";
 import PopUp from "../../components/common/PopUp/PopUp";
 import useModals from "../../hooks/useModals";
+import Tasks from "../../components/Tasks/Tasks"
 
 const NewTask = () => {
   const { isOpen, closeModal, modalContent, content } = useModals();
-
-  const { tasks, createTask, archiveTask, updateTask } = useTasks({
+  const { tasks, createTask, archiveTask, updateTask, isLoading } = useTasks({
     modalContent,
   });
 
@@ -27,9 +26,10 @@ const NewTask = () => {
 
         <Tasks
           tasks={tasks}
-          archiveTask = {archiveTask}
+          archiveTask={archiveTask}
           updateTask={updateTask}
           className="newtask-tasks"
+          isLoading={isLoading}
         />
 
         <PopUp open={isOpen} close={closeModal} image={content.image}>

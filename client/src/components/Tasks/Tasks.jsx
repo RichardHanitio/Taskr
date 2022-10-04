@@ -1,22 +1,23 @@
 import React from "react";
 import Task from "../common/Task/Task";
 import "./tasks.scss";
+import LoadingTasks from "../../components/common/LoadingTasks/LoadingTasks";
 
-const Tasks = ({archiveTask, updateTask, tasks, className, deleteTask, message, restoreTask}) => {
-  return (
-    <div className={`${className} tasks`}>
-      {tasks.length === 0 && (
-        <div className="tasks-message">
-          {
-            message || "No tasks currently ╮(＾▽＾)╭ "
-          }
-        </div>
-      )}
-      {tasks.length > 0 && (
-        <div className="tasks-container">
-          <div className="tasks-inner-container">
-            {
-              tasks.map((task) => {
+const Tasks = ({archiveTask, updateTask, tasks, className, deleteTask, message, restoreTask, isLoading}) => {
+  if(isLoading) {
+    return <LoadingTasks className={className} />
+  } else {
+    return (
+      <div className={`${className} tasks`}>
+        {tasks.length === 0 && (
+          <div className="tasks-message">
+            {message || "No tasks currently ╮(＾▽＾)╭ "}
+          </div>
+        )}
+        {tasks.length > 0 && (
+          <div className="tasks-container">
+            <div className="tasks-inner-container">
+              {tasks.map((task) => {
                 const date = new Date(task.dueDate);
                 return (
                   <Task
@@ -28,21 +29,20 @@ const Tasks = ({archiveTask, updateTask, tasks, className, deleteTask, message, 
                     dueDate={date.toLocaleString()}
                     priority={task.priority}
                     dateArchived={task.dateArchived}
-                    
                     //method
                     archiveTask={() => archiveTask(task._id)}
-                    updateTask = {() => updateTask(task._id)}
-                    deleteTask = {() => deleteTask(task._id)}
-                    restoreTask = {() => restoreTask(task._id)}
+                    updateTask={() => updateTask(task._id)}
+                    deleteTask={() => deleteTask(task._id)}
+                    restoreTask={() => restoreTask(task._id)}
                   />
                 );
-              })
-            }
+              })}
+            </div>
           </div>
-        </div>
-      )}
-    </div>
-  );
+        )}
+      </div>
+    );
+  }
 };
 
 export default Tasks;

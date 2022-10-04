@@ -8,7 +8,7 @@ import useModals from "../../hooks/useModals";
 
 const ArchiveTasks = () => {
   const {isOpen, closeModal, modalContent, content} = useModals();
-  const {archivedTasks, clearArchivedTasks, deleteTask, restoreArchivedTask} = useTasks({modalContent});
+  const {archivedTasks, clearArchivedTasks, deleteTask, restoreArchivedTask, isLoading} = useTasks({modalContent});
   return (
     <section className="archivedtasks-section">
       <div className="archivedtasks-container">
@@ -34,6 +34,7 @@ const ArchiveTasks = () => {
           className="archivedtasks-tasks"
           deleteTask={deleteTask}
           restoreTask={restoreArchivedTask}
+          isLoading={isLoading}
           message="No task archived (⁠.⁠ ⁠❛⁠ ⁠ᴗ⁠ ⁠❛⁠.⁠)"
         />
 

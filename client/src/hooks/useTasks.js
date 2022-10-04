@@ -16,11 +16,13 @@ const useTasks = ({modalContent}) => {
   const [tasks, setTasks] = useState([]);
   const [archivedTasks, setArchivedTasks] = useState([]);
   const [task, setTask] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
   const id = searchParams.get("id");
 
   // GET tasks
   const getTasks = useCallback(async () => {
     try {
+      setIsLoading(true);
       const resp = await httpGetTasks();
       setTasks(
         resp.data.sort((a, b) => {
@@ -30,6 +32,7 @@ const useTasks = ({modalContent}) => {
           );
         })
       );
+      setIsLoading(false);
     } catch (err) {
       modalContent("/assets/man-stress.png", err.response.data.error);
     }
@@ -38,6 +41,7 @@ const useTasks = ({modalContent}) => {
   // GET archived tasks
   const getArchivedTasks = useCallback(async () => {
     try {
+      setIsLoading(true);
       const resp = await httpGetArchivedTasks();
       setArchivedTasks(
         resp.data.sort((a, b) => {
@@ -47,6 +51,7 @@ const useTasks = ({modalContent}) => {
           );
         })
       );
+      setIsLoading(false);
     } catch (err) {
       modalContent("/assets/man-stress.png", err.response.data.error);
     }
@@ -181,7 +186,8 @@ const useTasks = ({modalContent}) => {
     task,
     archivedTasks,
     clearArchivedTasks,
-    restoreArchivedTask
+    restoreArchivedTask,
+    isLoading
   };
 };
 

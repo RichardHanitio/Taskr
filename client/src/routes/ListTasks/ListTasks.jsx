@@ -6,10 +6,11 @@ import Tasks from "../../components/Tasks/Tasks";
 import useTasks from "../../hooks/useTasks";
 import PopUp from "../../components/common/PopUp/PopUp";
 import useModals from "../../hooks/useModals";
+import LoadingTasks from "../../components/common/LoadingTasks/LoadingTasks";
 
 const ListTasks = () => {
   const { isOpen, closeModal, modalContent, content } = useModals();
-  const { tasks, deleteTask, archiveTask } = useTasks({modalContent});
+  const { tasks, deleteTask, archiveTask, isLoading } = useTasks({modalContent});
   const [search, setSearch] = useState("");
   const [filteredAndSortedTask, setFilteredAndSortedTask] = useState(tasks);
   const [sortby, setSortby] = useState("date-created");
@@ -94,12 +95,14 @@ const ListTasks = () => {
           </select>
         </div>
         <Navbar />
+
         <Tasks
           tasks={filteredAndSortedTask}
           className="listtasks-tasks"
           message={search && `No tasks with name "${search}" found`}
           deleteTask={deleteTask}
           archiveTask={archiveTask}
+          isLoading={isLoading}
         />
 
         <PopUp open={isOpen} close={closeModal} image={content.image}>

@@ -5,6 +5,7 @@ const app = express();
 const cors = require("cors");
 const tasksRouter = require("./routes/tasks.router");
 const path = require("path");
+const helmet = require("helmet");
 const { Strategy } = require("passport-google-oauth20");
 const passport = require("passport");
 
@@ -21,6 +22,7 @@ const AUTH_OPTIONS = {
 
 passport.use(new Strategy(AUTH_OPTIONS, verifyCallback));
 
+app.use(helmet());
 app.use(passport.initialize());
 app.use(cors());
 app.use(express.json());

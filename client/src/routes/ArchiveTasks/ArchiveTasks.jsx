@@ -17,7 +17,7 @@ const ArchiveTasks = () => {
           <div className="archivedtasks-info">
             <div className="archivedtasks-info-container">
               <span className="archivedtasks-info-notif">
-                Tasks archived are deleted forever after 30 days
+                Tasks archived are deleted forever after 7 days
               </span>
               <span
                 className="archivedtasks-info-cta"

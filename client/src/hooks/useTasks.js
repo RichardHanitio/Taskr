@@ -7,7 +7,7 @@ import {
   httpGetTask,
   httpGetArchivedTasks,
   httpClearArchivedTasks,
-  httpRestoreTask
+  httpRestoreTask,
 } from "./requests";
 import { useSearchParams } from "react-router-dom";
 

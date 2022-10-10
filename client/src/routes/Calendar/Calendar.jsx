@@ -17,7 +17,7 @@ const Calendar = () => {
           type="button"
           height="40px"
           width="50%"
-          // func={httpGoogleLogin}
+          link="/auth/google"
         >
           <FcGoogle className="calendar-google-logo"/>
           Sign In and Connect to Google Calendar
@@ -29,7 +29,6 @@ const Calendar = () => {
         scrolling="no"
         className="calendar-iframe"
       /> */}
-      
     </section>
   );
 }

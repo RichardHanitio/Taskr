@@ -8,8 +8,6 @@ const path = require("path");
 const {Strategy} = require("passport-google-oauth20");
 const passport = require("passport");
 
-console.log("tes");
-
 const config = {
   CLIENT_ID: process.env.CLIENT_ID,
   CLIENT_SECRET: process.env.CLIENT_SECRET,
@@ -28,9 +26,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"))
-})
+
 app.use("/api/v1/tasks", tasksRouter);
 app.get("/auth/google", passport.authenticate("google", {scope: ["email", "profile", "https://www.googleapis.com/auth/calendar"]}));
 app.get("/auth/google/callback", passport.authenticate("google", {
@@ -42,6 +38,10 @@ app.get("/auth/google/callback", passport.authenticate("google", {
   console.log("Google called us back");
 }
 )
+
+app.get("/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
 
 function verifyCallback(accessToken, refreshToken, profile, done) {
   console.log("Google profile", profile);

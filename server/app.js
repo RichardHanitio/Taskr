@@ -8,6 +8,8 @@ const path = require("path");
 const {Strategy} = require("passport-google-oauth20");
 const passport = require("passport");
 
+console.log("tes");
+
 const config = {
   CLIENT_ID: process.env.CLIENT_ID,
   CLIENT_SECRET: process.env.CLIENT_SECRET,

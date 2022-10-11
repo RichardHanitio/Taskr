@@ -15,7 +15,8 @@ const config = {
 };
 
 const AUTH_OPTIONS = {
-  clientID: config.CLIENT_ID,
+  clientID:
+    "853428429386-g6ijmg4hjt6gjorf85sh9637u089hkis.apps.googleusercontent.com",
   clientSecret: config.CLIENT_SECRET,
   callbackURL: "/auth/google/callback",
 };

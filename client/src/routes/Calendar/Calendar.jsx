@@ -10,7 +10,8 @@ const Calendar = () => {
   const navigate = useNavigate();
   const handleGoogleLogin = () => {
     // return await axios.get("http://localhost:5000/auth/google");
-    window.open("http://localhost:5000/auth/google", "_self");
+    // window.open("http://localhost:5000/auth/google", "_self");
+    window.open("https://taskr-tasktracker.herokuapp.com/auth/google", "_self");
   }
   return (
     <section className="calendar-section">

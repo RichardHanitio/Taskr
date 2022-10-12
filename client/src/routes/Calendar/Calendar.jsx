@@ -3,8 +3,10 @@ import "./calendar.scss";
 import Navbar from "../../components/common/Navbar/Navbar"
 import Button from "../../components/common/Button/Button"
 import {FcGoogle} from "react-icons/fc";
+import {useNavigate} from "react-router-dom";
 
 const Calendar = () => {
+  const navigate = useNavigate();
   return (
     <section className="calendar-section">
       <Navbar />
@@ -17,7 +19,7 @@ const Calendar = () => {
           type="button"
           height="40px"
           width="50%"
-          link="/auth/google"
+          func={() => navigate("/auth/google")}
         >
           <FcGoogle className="calendar-google-logo"/>
           Sign In and Connect to Google Calendar

@@ -23,7 +23,7 @@ const AUTH_OPTIONS = {
 
 passport.use(new Strategy(AUTH_OPTIONS, verifyCallback));
 
-app.use(helmet());
+// app.use(helmet());
 app.use(passport.initialize());
 app.use(cors());
 app.use(express.json());

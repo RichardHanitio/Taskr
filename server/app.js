@@ -8,6 +8,14 @@ const path = require("path");
 const helmet = require("helmet");
 const { Strategy } = require("passport-google-oauth20");
 const passport = require("passport");
+app.use(cors());
+// app.use(
+//   cors({
+//     origin: "http://localhost:5000",
+//     methods: "GET,POST,PUT,DELETE",
+//     credentials: true,
+//   })
+// );
 
 const config = {
   CLIENT_ID: process.env.CLIENT_ID,
@@ -25,9 +33,9 @@ passport.use(new Strategy(AUTH_OPTIONS, verifyCallback));
 
 // app.use(helmet());
 app.use(passport.initialize());
-app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
+
 
 // Tasks Router
 app.use("/api/v1/tasks", tasksRouter);
@@ -37,10 +45,13 @@ app.get(
   "/auth/google",
   passport.authenticate("google", {
     scope: ["email", "profile", "https://www.googleapis.com/auth/calendar"],
-  })
+  }),
+  (req, res) => {
+    console.log("tes");
+  }
 );
 app.get(
-  "https://taskr-tasktracker.herokuapp.com/auth/google/callback",
+  "/auth/google/callback",
   passport.authenticate("google", {
     failureRedirect: "/failure",
     successRedirect: "/",

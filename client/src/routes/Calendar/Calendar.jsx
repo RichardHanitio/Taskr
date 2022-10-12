@@ -4,9 +4,14 @@ import Navbar from "../../components/common/Navbar/Navbar"
 import Button from "../../components/common/Button/Button"
 import {FcGoogle} from "react-icons/fc";
 import {useNavigate} from "react-router-dom";
+import axios from "axios";
 
 const Calendar = () => {
   const navigate = useNavigate();
+  const handleGoogleLogin = () => {
+    // return await axios.get("http://localhost:5000/auth/google");
+    window.open("http://localhost:5000/auth/google", "_self");
+  }
   return (
     <section className="calendar-section">
       <Navbar />
@@ -19,7 +24,7 @@ const Calendar = () => {
           type="button"
           height="40px"
           width="50%"
-          func={() => navigate("/auth/google")}
+          func={handleGoogleLogin}
         >
           <FcGoogle className="calendar-google-logo"/>
           Sign In and Connect to Google Calendar

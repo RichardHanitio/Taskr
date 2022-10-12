@@ -26,7 +26,8 @@ const AUTH_OPTIONS = {
   clientID:
     "853428429386-g6ijmg4hjt6gjorf85sh9637u089hkis.apps.googleusercontent.com",
   clientSecret: config.CLIENT_SECRET,
-  callbackURL: "/auth/google/callback",
+  // callbackURL: "/auth/google/callback",
+  callbackURL: "https://taskr-tasktracker.herokuapp.com/auth/google/callback",
 };
 
 passport.use(new Strategy(AUTH_OPTIONS, verifyCallback));
@@ -51,7 +52,7 @@ app.get(
   }
 );
 app.get(
-  "/auth/google/callback",
+  "https://taskr-tasktracker.herokuapp.com/auth/google/callback",
   passport.authenticate("google", {
     failureRedirect: "/failure",
     successRedirect: "/",

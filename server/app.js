@@ -29,8 +29,8 @@ const config = {
 const AUTH_OPTIONS = {
   clientID: config.CLIENT_ID,
   clientSecret: config.CLIENT_SECRET,
-  callbackURL: "http://localhost:5000/auth/google/callback",
-  // callbackURL: "https://taskr-tasktracker.herokuapp.com/auth/google/callback",
+  // callbackURL: "http://localhost:5000/auth/google/callback",
+  callbackURL: "https://taskr-tasktracker.herokuapp.com/auth/google/callback",
 };
 
 passport.use(new Strategy(AUTH_OPTIONS, verifyCallback));

@@ -71,7 +71,7 @@ app.get(
 app.get(
   "/auth/google/callback",
   passport.authenticate("google", {
-    // failureRedirect: "/failure",
+    failureRedirect: "/failure",
     successRedirect: "/",
     session: true,
   }),

@@ -29,19 +29,19 @@ const config = {
 const AUTH_OPTIONS = {
   clientID: config.CLIENT_ID,
   clientSecret: config.CLIENT_SECRET,
-  // callbackURL: "/auth/google/callback",
-  callbackURL: "https://taskr-tasktracker.herokuapp.com/auth/google/callback",
+  callbackURL: "http://localhost:5000/auth/google/callback",
+  // callbackURL: "https://taskr-tasktracker.herokuapp.com/auth/google/callback",
 };
 
 passport.use(new Strategy(AUTH_OPTIONS, verifyCallback));
 
 
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+  done(null, user);
 });
 
-passport.deserializeUser((id, done) => {
-  done(null, id);
+passport.deserializeUser((user, done) => {
+  done(null, user);
 });
 
 app.use(helmet());
@@ -68,13 +68,14 @@ app.get(
     scope: ["email", "profile", "https://www.googleapis.com/auth/calendar"],
   })
 );
+
 app.get(
   "/auth/google/callback",
   passport.authenticate("google", {
     failureRedirect: "/failure",
     successRedirect: "/",
     session: true,
-  }),
+  })
 );
 
 // Frontend Router

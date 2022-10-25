@@ -8,6 +8,8 @@ const path = require("path");
 const helmet = require("helmet");
 const { Strategy } = require("passport-google-oauth20");
 const passport = require("passport");
+const cookieSession = require("cookie-session");
+
 app.use(cors());
 // app.use(
 //   cors({
@@ -20,11 +22,12 @@ app.use(cors());
 const config = {
   CLIENT_ID: process.env.CLIENT_ID,
   CLIENT_SECRET: process.env.CLIENT_SECRET,
+  COOKIE_KEY_1: process.env.COOKIE_KEY_1,
+  COOKIE_KEY_2: process.env.COOKIE_KEY_2,
 };
 
 const AUTH_OPTIONS = {
-  clientID:
-    "853428429386-g6ijmg4hjt6gjorf85sh9637u089hkis.apps.googleusercontent.com",
+  clientID: config.CLIENT_ID,
   clientSecret: config.CLIENT_SECRET,
   // callbackURL: "/auth/google/callback",
   callbackURL: "https://taskr-tasktracker.herokuapp.com/auth/google/callback",
@@ -32,8 +35,25 @@ const AUTH_OPTIONS = {
 
 passport.use(new Strategy(AUTH_OPTIONS, verifyCallback));
 
-// app.use(helmet());
+
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser((id, done) => {
+  done(null, id);
+});
+
+app.use(helmet());
+app.use(
+  cookieSession({
+    name: "session",
+    keys: [config.COOKIE_KEY_1, config.COOKIE_KEY_2],
+    maxAge: 3 * 24 * 60 * 60 * 1000,
+  })
+);
 app.use(passport.initialize());
+app.use(passport.session());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -46,21 +66,15 @@ app.get(
   "/auth/google",
   passport.authenticate("google", {
     scope: ["email", "profile", "https://www.googleapis.com/auth/calendar"],
-  }),
-  (req, res) => {
-    console.log("tes");
-  }
+  })
 );
 app.get(
   "/auth/google/callback",
   passport.authenticate("google", {
-    failureRedirect: "/failure",
+    // failureRedirect: "/failure",
     successRedirect: "/",
-    session: false,
+    session: true,
   }),
-  (req, res) => {
-    console.log("Google called us back");
-  }
 );
 
 // Frontend Router
@@ -72,5 +86,7 @@ function verifyCallback(accessToken, refreshToken, profile, done) {
   console.log("Google profile", profile);
   done(null, profile);
 }
+
+
 
 module.exports = app;

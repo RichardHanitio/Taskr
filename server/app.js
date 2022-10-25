@@ -74,7 +74,7 @@ app.get(
 );
 
 app.get(
-  "/auth/google/callback/*",
+  "/auth/google/callback",
   passport.authenticate("google", {
     failureRedirect: "/failure",
     successRedirect: "https://taskr-tasktracker.herokuapp.com",

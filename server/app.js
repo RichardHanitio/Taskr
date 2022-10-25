@@ -30,7 +30,7 @@ const AUTH_OPTIONS = {
   clientID: config.CLIENT_ID,
   clientSecret: config.CLIENT_SECRET,
   // callbackURL: "http://localhost:5000/auth/google/callback",
-  callbackURL: "https://taskr-tasktracker.herokuapp.com/auth/google/callback/*",
+  callbackURL: "https://taskr-tasktracker.herokuapp.com/auth/google/callback/",
   // callbackURL : "/auth/google/callback",
 };
 
@@ -51,6 +51,9 @@ app.use(
     name: "session",
     keys: [config.COOKIE_KEY_1, config.COOKIE_KEY_2],
     maxAge: 3 * 24 * 60 * 60 * 1000,
+    httpOnly: true,
+    secure: true, 
+    sameSite: "none"
   })
 );
 app.use(passport.initialize());
@@ -71,7 +74,7 @@ app.get(
 );
 
 app.get(
-  "/auth/google/callback/*",
+  "/auth/google/callback/",
   passport.authenticate("google", {
     failureRedirect: "/failure",
     successRedirect: "/",

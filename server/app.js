@@ -77,7 +77,7 @@ app.get(
   "/auth/google/callback/*",
   passport.authenticate("google", {
     failureRedirect: "/failure",
-    successRedirect: "/",
+    successRedirect: "https://taskr-tasktracker.herokuapp.com",
   }),
   (req, res) => {
     console.log("google called us back");

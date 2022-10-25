@@ -75,7 +75,6 @@ app.get(
   passport.authenticate("google", {
     failureRedirect: "/failure",
     successRedirect: "/",
-    session: true,
   })
 );
 

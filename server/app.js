@@ -75,7 +75,10 @@ app.get(
   passport.authenticate("google", {
     failureRedirect: "/failure",
     successRedirect: "/",
-  })
+  }),
+  (req, res) => {
+    console.log("google called us back");
+  }
 );
 
 // Frontend Router

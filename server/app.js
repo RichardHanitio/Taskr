@@ -52,8 +52,9 @@ app.use(
     keys: [config.COOKIE_KEY_1, config.COOKIE_KEY_2],
     maxAge: 3 * 24 * 60 * 60 * 1000,
     httpOnly: true,
-    secure: true, 
-    sameSite: "none"
+    secure: true,
+    sameSite: "none",
+    domain: "taskr-tasktracker.herokuapp.com",
   })
 );
 app.use(passport.initialize());

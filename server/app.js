@@ -10,6 +10,7 @@ const { Strategy } = require("passport-google-oauth20");
 const passport = require("passport");
 const cookieSession = require("cookie-session");
 
+app.set("trust proxy", 1);
 app.use(cors());
 // app.use(
 //   cors({

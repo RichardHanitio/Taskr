@@ -16,7 +16,16 @@ authRouter.get(
   passport.authenticate("google", {
     failureRedirect: "/failure",
     successRedirect: `${process.env.CLIENT_URL}/calendar`,
-  }),
+  })
 );
+
+authRouter.get("/login/success", (req, res) => {
+  if(req.isAuthenticated() && req.user && req.user.emails[0].verified) {
+    return res.status(200).json({
+      msg: "Login successful",
+      user: req.user.emails[0].value
+    })
+  }
+})
 
 module.exports = authRouter;

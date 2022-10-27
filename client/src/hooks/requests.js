@@ -1,6 +1,8 @@
 import axios from "axios";
-// require("dotenv").config();
+// * for development purposes only
 const API_URL = "http://localhost:5000/api/v1";
+
+// * for deployment purposes only
 // const API_URL = "https://taskr-tasktracker.herokuapp.com/api/v1";
 
 const httpGetTasks = async () => {
@@ -35,6 +37,10 @@ const httpUpdateTask = async (taskID, updatedTask) => {
   return await axios.patch(`${API_URL}/tasks/${taskID}`, updatedTask);
 };
 
+const httpGetUser = async() => {
+  return await axios.get(`http://localhost:5000/auth/login/success`);
+}
+
 export {
   httpGetTasks,
   httpCreateTask,
@@ -44,4 +50,5 @@ export {
   httpGetArchivedTasks,
   httpClearArchivedTasks,
   httpRestoreTask,
+  httpGetUser,
 };

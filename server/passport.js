@@ -1,13 +1,11 @@
 require("dotenv").config();
 
-const { Strategy } = require("passport-google-oauth20");
+const { Strategy:GoogleStrategy } = require("passport-google-oauth20");
 const passport = require("passport");
 
 const config = {
   CLIENT_ID: process.env.CLIENT_ID,
   CLIENT_SECRET: process.env.CLIENT_SECRET,
-  COOKIE_KEY_1: process.env.COOKIE_KEY_1,
-  COOKIE_KEY_2: process.env.COOKIE_KEY_2,
 };
 
 const AUTH_OPTIONS = {
@@ -20,7 +18,7 @@ const AUTH_OPTIONS = {
   callbackURL: "/auth/google/callback",
 };
 
-passport.use(new Strategy(AUTH_OPTIONS, verifyCallback));
+passport.use(new GoogleStrategy(AUTH_OPTIONS, verifyCallback));
 
 passport.serializeUser((user, done) => {
   done(null, user);

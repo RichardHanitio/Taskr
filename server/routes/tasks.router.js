@@ -10,7 +10,6 @@ const {
   clearArchivedTasks,
   restoreArchivedTask,
 } = require("../controllers/tasks.controller");
-const login = require("../controllers/login.controller");
 
 tasksRouter.route("/").get(getAllTasks).post(createTask);
 tasksRouter

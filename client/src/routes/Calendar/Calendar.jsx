@@ -3,19 +3,22 @@ import "./calendar.scss";
 import Navbar from "../../components/common/Navbar/Navbar"
 import Button from "../../components/common/Button/Button"
 import {FcGoogle} from "react-icons/fc";
-import {useNavigate} from "react-router-dom";
-import axios from "axios";
+import Cookies from "js-cookie";
+import {getCookie} from "react-use-cookie";
 
 const Calendar = () => {
-  const navigate = useNavigate();
   const handleGoogleLogin = () => {
     // return await axios.get("http://localhost:5000/auth/google");
-    // window.open("http://localhost:5000/auth/google", "_self");
-    window.open("https://taskr-tasktracker.herokuapp.com/auth/google", "_self");
+    window.open("http://localhost:5000/auth/google", "_self");
+    // window.open("https://taskr-tasktracker.herokuapp.com/auth/google", "_self");
   }
   return (
     <section className="calendar-section">
       <Navbar />
+      {
+        // console.log(`COOKIE : ${getCookie("1P_JAR")}`)
+        console.log(`COOKIE : ${Cookies.get("1P_JAR")}`)
+      }
       <div className="calendar-sign-in">
         <div className="calendar-sign-in-prompt">
           To connect your tasks to Google Calendar, you need to sign in.

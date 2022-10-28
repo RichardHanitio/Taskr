@@ -1,18 +1,41 @@
+require("dotenv").config();
 const { google } = require("googleapis");
 const { OAuth2 } = google.auth;
 
+const config = {
+  CLIENT_ID: process.env.CLIENT_ID,
+  CLIENT_SECRET: process.env.CLIENT_SECRET,
+};
+
+const AUTH_OPTIONS = {
+  clientID: config.CLIENT_ID,
+  clientSecret: config.CLIENT_SECRET,
+  // * for deployment purposes only
+  // callbackURL: "https://taskr-tasktracker.herokuapp.com/auth/google/callback",
+
+  // * for development purposes only
+  callbackURL: "/auth/google/callback",
+};
+
 const oAuth2Client = new OAuth2(
-  "853428429386-h72n332nu3le2b4teqs9he2qnkc6v66o.apps.googleusercontent.com",
-  "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"
+  config.CLIENT_ID,
+  config.CLIENT_SECRET,
+  // * for deployment purposes only
+  // callbackURL: "https://taskr-tasktracker.herokuapp.com/auth/google/callback",
+
+  // * for development purposes only
+  "/auth/google/callback",
 );
 
 oAuth2Client.setCredentials({
-  refresh_token:
-    "1//04lV7C8b2j07eCgYIARAAGAQSNwF-L9Ir9EhFtDih7-S7Zbjm1qYcYMkpUJVGh83sd0ysBGtAXLLhdSqczxnYeuU12OCBXmS7SwI",
+  access_token: process.env.ACCESS_TOKEN,
+  refresh_token: process.env.REFRESH_TOKEN,
+  scope: "https://www.googleapis.com/auth/calendar",
+  // access_type: 'offline',
+  // expiry_date: '1469787756005'
 });
 
 const calendar = google.calendar({ version: "v3", auth: oAuth2Client });
-
 
 
 module.exports = calendar;

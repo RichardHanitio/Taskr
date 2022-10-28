@@ -30,5 +30,6 @@ passport.deserializeUser((user, done) => {
 
 function verifyCallback(accessToken, refreshToken, profile, done) {
   console.log("Google profile", profile);
+  console.log("Refresh token: ", refreshToken);
   done(null, profile);
 }

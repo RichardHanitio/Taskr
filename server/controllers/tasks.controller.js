@@ -1,6 +1,6 @@
-const moment = require("moment");
+require("dotenv").config();
 const Task = require("../models/tasks.model");
-const calendar = require("../calendar");
+const {createTaskInCalendar, updateTaskInCalendar, getTaskInCalendar, deleteTaskInCalendar} = require("./calendar.controller");
 
 const getAllTasks = async (req, res) => {
   try {
@@ -49,12 +49,12 @@ const restoreArchivedTask = async(req, res) => {
       return res.status(404).json({ error: "No task found" });
     }
     res.status(200).json({msg: "Task restored successfully", task});
+    
 
   } catch (err) {
     res.status(500).json({ error: "Something went wrong, please try again" });
   }
 }
-
 
 const createTask = async (req, res) => {
   try {
@@ -66,50 +66,8 @@ const createTask = async (req, res) => {
       priority,
     });
 
-    let priorityColorCode;
-    if (priority === "high") {
-      priorityColorCode = "11";
-    } else if (priority === "medium") {
-      priorityColorCode = "5";
-    } else if (priority === "low") {
-      priorityColorCode = "10";
-    }
-
-    let calendarTask = {
-      id: newTask._id.toString(),
-      created: new Date(newTask.dateCreated),
-      summary: task,
-      description: desc,
-      start: {
-        dateTime: new Date(dueDate.toLocaleString()),
-        timeZone: "Asia/Jakarta",
-      },
-      end: {
-        dateTime: new Date(dueDate.toLocaleString()),
-        timeZone: "Asia/Jakarta",
-      },
-      colorId: priorityColorCode,
-      reminders: {
-        useDefault: false,
-        overrides: [
-          { method: "email", minutes: 30 },
-          { method: "popup", minutes: 10 },
-        ],
-      },
-    };
-
-    calendar.events.insert(
-      {
-        calendarId: "primary",
-        resource: calendarTask,
-      },
-      (err, event) => {
-        if (err) {
-          console.log(err);
-          return;
-        }
-      }
-    );
+    // set in calendar
+    createTaskInCalendar(newTask);
 
     res.status(201).json({ msg: "Task created successfully", newTask });
   } catch (err) {
@@ -122,14 +80,9 @@ const getTask = async (req, res) => {
     const { id } = req.params;
     const task = await Task.findOne({ _id: id });
     
-    calendar.events.get(
-    { calendarId: "primary", eventId: id },
-    (err, res) => {
-      if (err) {
-        console.log(err);
-        return;
-      }
-    })
+    // get from calendar
+    getTaskInCalendar(id);
+
     if (!task) {
       return res.status(404).json({ error: `No task with id ${id} found` });
     }
@@ -151,44 +104,14 @@ const updateTask = async (req, res) => {
     }
 
     if(!req.body.dateArchived) {
-      const { task: taskName, desc, dueDate, priority } = req.body;
-
-      let priorityColorCode;
-      if (priority === "high") {
-        priorityColorCode = "11";
-      } else if (priority === "medium") {
-        priorityColorCode = "5";
-      } else if (priority === "low") {
-        priorityColorCode = "10";
-      }
-
-      let calendarTask = {
-        summary: taskName,
-        description: desc,
-        start: {
-          dateTime: new Date(dueDate.toLocaleString()),
-          timeZone: "Asia/Jakarta",
-        },
-        end: {
-          dateTime: new Date(dueDate.toLocaleString()),
-          timeZone: "Asia/Jakarta",
-        },
-        colorId: priorityColorCode,
-      };
-
-      calendar.events.patch(
-        { calendarId: "primary", eventId: id, resource: calendarTask },
-        (err) => {
-          if (err) {
-            console.log(err);
-            return;
-          }
-        }
-      );
+      const updatedTask = req.body;
+      
+      // set in calendar
+      updateTaskInCalendar(updatedTask);
+      
       return res.status(200).json({ msg: "Task updated successfully", task });
     }
     return res.status(200).json({ msg: "Task archived successfully", task });
-
 
   } catch (err) {
     res.status(500).json({ error: "Something went wrong, please try again" });
@@ -202,15 +125,10 @@ const deleteTask = async (req, res) => {
     if (!task) {
       return res.status(404).json({ error: `No task with id ${taskID} found` });
     }
-    calendar.events.delete(
-      { calendarId: "primary", eventId: taskID },
-      (err) => {
-        if (err) {
-          console.log(err);
-          return;
-        }
-      }
-    );
+    
+    // set in calendar
+    deleteTaskInCalendar(taskID);
+
     res.status(200).json({ msg: "Task deleted successfully", task });
   } catch (err) {
     res.status(500).json({ error: "Something went wrong, please try again" });

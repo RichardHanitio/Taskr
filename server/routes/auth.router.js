@@ -8,6 +8,9 @@ authRouter.get(
   "/google",
   passport.authenticate("google", {
     scope: ["email", "profile", "https://www.googleapis.com/auth/calendar"],
+    // harus ada accessType:offline untuk bs mendapatkan refresh token
+    // refresh token hanya diberikan SEKALI saat PERTAMA SEKALI autorisasi
+    accessType: "offline",
   })
 );
 

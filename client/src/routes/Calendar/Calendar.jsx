@@ -3,9 +3,7 @@ import "./calendar.scss";
 import Navbar from "../../components/common/Navbar/Navbar"
 import Button from "../../components/common/Button/Button"
 import {FcGoogle} from "react-icons/fc";
-import axios from "axios";
-import { useEffect, useState, useCallback } from 'react';
-import {httpGetUser} from "../../hooks/requests"
+import { useEffect, useState } from 'react';
 
 const Calendar = () => {
   const [user, setUser] = useState(null);
@@ -54,6 +52,9 @@ const Calendar = () => {
     // * for deployment purposes only
     // window.open("https://taskr-tasktracker.herokuapp.com/auth/google", "_self");
   }
+
+  console.log(user);
+
   if(!user) {
     return (
       <section className="calendar-section">

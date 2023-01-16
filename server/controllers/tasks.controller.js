@@ -48,6 +48,10 @@ const restoreArchivedTask = async(req, res) => {
     if(!task) {
       return res.status(404).json({ error: "No task found" });
     }
+
+    // set di calendar
+    createTaskInCalendar(task);
+
     res.status(200).json({msg: "Task restored successfully", task});
     
 
@@ -67,7 +71,10 @@ const createTask = async (req, res) => {
     });
 
     // set in calendar
-    createTaskInCalendar(newTask);
+    // console.log(req.user)
+    // if(req.isAuthenticated() && req.user) {
+      createTaskInCalendar(newTask);
+    // }
 
     res.status(201).json({ msg: "Task created successfully", newTask });
   } catch (err) {
@@ -103,14 +110,19 @@ const updateTask = async (req, res) => {
       return res.status(404).json({ error: `No task with id ${id} found` });
     }
 
+    // kalau bukan di archive
+    const updatedTask = req.body;
     if(!req.body.dateArchived) {
-      const updatedTask = req.body;
       
       // set in calendar
       updateTaskInCalendar(updatedTask);
       
       return res.status(200).json({ msg: "Task updated successfully", task });
     }
+
+    // kalau di archive
+    deleteTaskInCalendar(updatedTask);
+
     return res.status(200).json({ msg: "Task archived successfully", task });
 
   } catch (err) {

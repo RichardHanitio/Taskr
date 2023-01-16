@@ -10,18 +10,29 @@ const helmet = require("helmet");
 const passportSetup = require("./passport");
 const passport = require("passport");
 const cookieSession = require("cookie-session");
+const cookieParser = require("cookie-parser");
 
 // * for deployment purposes only
 // app.set("trust proxy", 1);
-// app.use(cors());
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-    methods: "GET,POST,PUT,DELETE",
-    credentials: true,
-  })
-);
+
+// * for development purposes only
+app.use(cors({
+  origin: "http://localhost:3000",
+  methods : "GET, POST, PATCH, PUT, DELETE",
+  credentials: true,
+}));
+
+// * for deployement purposes only
+// app.use(
+//   cors({
+//     origin: "https://taskr-tasktracker.herokuapp.com/",
+//     methods: "GET, POST, PATCH, PUT, DELETE",
+//     credentials: true,
+//   })
+// );
+
 app.use(helmet());
+app.use(cookieParser());
 app.use(
   cookieSession({
     name: "session",

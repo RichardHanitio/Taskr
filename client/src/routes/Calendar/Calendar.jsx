@@ -36,7 +36,7 @@ const Calendar = () => {
            throw new Error("authentication has been failed!");
          })
          .then((resObject) => {
-           setUser(resObject.user);
+           setUser(resObject.user.emails[0].value);
          })
          .catch((err) => {
            console.log(err);
@@ -52,9 +52,7 @@ const Calendar = () => {
     // * for deployment purposes only
     // window.open("https://taskr-tasktracker.herokuapp.com/auth/google", "_self");
   }
-
-  console.log(user);
-
+  
   if(!user) {
     return (
       <section className="calendar-section">
@@ -68,6 +66,7 @@ const Calendar = () => {
             type="button"
             height="40px"
             width="50%"
+            className="sign-in-btn"
             func={handleGoogleLogin}
           >
             <FcGoogle className="calendar-google-logo" />
@@ -80,10 +79,10 @@ const Calendar = () => {
     return (
       <section className="calendar-section">
         <Navbar />
+        {console.log(user)}
         <iframe
           src={`https://calendar.google.com/calendar/embed?src=${user.replace('@', "%40")}&ctz=Asia%2FJakarta`}
-          frameBorder="0"
-          scrolling="no"
+          title="myCalendar"
           className="calendar-iframe"
         ></iframe>
       </section>

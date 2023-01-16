@@ -16,17 +16,17 @@ authRouter.get(
 
 authRouter.get(
   "/google/callback",
+
   passport.authenticate("google", {
-    failureRedirect: "/failure",
     successRedirect: `${process.env.CLIENT_URL}/calendar`,
   })
-);
+)
 
 authRouter.get("/login/success", (req, res) => {
-  if(req.isAuthenticated() && req.user && req.user.emails[0].verified) {
+  if(req.user) {
     return res.status(200).json({
       msg: "Login successful",
-      user: req.user.emails[0].value
+      user: req.user
     })
   }
 })

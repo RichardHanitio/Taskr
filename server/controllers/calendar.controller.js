@@ -11,41 +11,47 @@ function getPriorityColorCode(priority) {
 }
 
 function createTaskInCalendar(newTask) {
-  let calendarTask = {
-    id: newTask._id.toString(),
-    created: new Date(newTask.dateCreated),
-    summary: newTask.task,
-    description: newTask.desc,
-    start: {
-      dateTime: new Date(newTask.dueDate.toLocaleString()),
-      timeZone: "Asia/Jakarta",
-    },
-    end: {
-      dateTime: new Date(newTask.dueDate.toLocaleString()),
-      timeZone: "Asia/Jakarta",
-    },
-    colorId: getPriorityColorCode(newTask.priority),
-    reminders: {
-      useDefault: false,
-      overrides: [
-        { method: "email", minutes: 30 },
-        { method: "popup", minutes: 10 },
-      ],
-    },
-  };
+  try {
+    let calendarTask = {
+      id: newTask._id.toString(),
+      created: new Date(newTask.dateCreated),
+      summary: newTask.task,
+      description: newTask.desc,
+      start: {
+        dateTime: new Date(newTask.dueDate.toLocaleString()),
+        timeZone: "Asia/Jakarta",
+      },
+      end: {
+        dateTime: new Date(newTask.dueDate.toLocaleString()),
+        timeZone: "Asia/Jakarta",
+      },
+      colorId: getPriorityColorCode(newTask.priority),
+      reminders: {
+        useDefault: false,
+        overrides: [
+          { method: "email", minutes: 30 },
+          { method: "popup", minutes: 10 },
+        ],
+      },
+    };
 
-  calendar.events.insert(
-    {
-      calendarId: "primary",
-      resource: calendarTask,
-    },
-    (err, event) => {
-      if (err) {
-        console.log(err);
-        return;
+    calendar.events.insert(
+      {
+        calendarId: "primary",
+        resource: calendarTask,
+      },
+      (err, event) => {
+        if (err) {
+          console.log(err);
+          return;
+        }
       }
-    }
-  );
+    );
+  }
+  catch(err) {
+    console.log(err);
+  }
+
 }
 
 function updateTaskInCalendar(updatedTask) {

@@ -26,12 +26,25 @@
     margin-top : 20px;
   }
 
+  .sign-in-btn {
+    width : 500px;
+  }
+
   .calendar-sign-in {
     @include displayFlex(column, space-around, center);
     height : 100px;
     
+    @include respond-to("md") {
+      height : 120px;
+    }
+
+    @include respond-to("sm") {
+      height : 150px;
+    }
+
     &-prompt {
       color : white;
+      text-align : center;
     }
 
     .calendar-google-logo {

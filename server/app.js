@@ -17,23 +17,23 @@ const {setCredentials} = require("./routes/auth.router");
 
 
 // * for deployment purposes only
-// app.set("trust proxy", 1);
+app.set("trust proxy", 1);
 
 // * for development purposes only
-app.use(cors({
-  origin: "http://localhost:3000",
-  methods : "GET, POST, PATCH, PUT, DELETE",
-  credentials: true,
-}));
+// app.use(cors({
+//   origin: "http://localhost:3000",
+//   methods : "GET, POST, PATCH, PUT, DELETE",
+//   credentials: true,
+// }));
 
 // * for deployement purposes only
-// app.use(
-//   cors({
-//     origin: "https://taskr-tasktracker.herokuapp.com/",
-//     methods: "GET, POST, PATCH, PUT, DELETE",
-//     credentials: true,
-//   })
-// );
+app.use(
+  cors({
+    origin: "https://taskr-tasktracker.netlify.com",
+    methods: "GET, POST, PATCH, PUT, DELETE",
+    credentials: true,
+  })
+);
 
 app.use(helmet());
 app.use(passport.initialize());
@@ -44,10 +44,10 @@ app.use(
     keys: [process.env.COOKIE_KEY_1, process.env.COOKIE_KEY_2],
     maxAge: 3 * 24 * 60 * 60 * 1000,
     // * for deployment purposes only
-    // sameSite: "none",
-    // httpOnly: true,
-    // secure: true,
-    // domain: "taskr-tasktracker.herokuapp.com",
+    sameSite: "none",
+    httpOnly: true,
+    secure: true,
+    domain: "taskr-tasktracker.netlify.com",
   })
 );
 app.use(passport.session());

@@ -11,10 +11,10 @@ const oAuth2Client = new OAuth2(
   config.CLIENT_ID,
   config.CLIENT_SECRET,
   // * for deployment purposes only
-  // callbackURL: "https://taskr-tasktracker.herokuapp.com/auth/google/callback",
+  "https://taskr-tasktracker.netlify.com/auth/google/callback",
 
   // * for development purposes only
-  "/auth/google/callback",
+  // "/auth/google/callback",
 );
 
 const calendar = google.calendar({ version: "v3", auth: oAuth2Client });

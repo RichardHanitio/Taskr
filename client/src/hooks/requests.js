@@ -1,9 +1,9 @@
 import axios from "axios";
 // * for development purposes only
-const API_URL = "http://localhost:5000/api/v1";
+// const API_URL = "http://localhost:5000/api/v1";
 
 // * for deployment purposes only
-// const API_URL = "https://taskr-tasktracker.herokuapp.com/api/v1";
+const API_URL = "https://taskr-tasktracker.netlify.com/api/v1";
 
 const httpGetTasks = async () => {
   return await axios.get(`${API_URL}/tasks`);

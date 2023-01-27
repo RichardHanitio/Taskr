@@ -42,14 +42,12 @@ function createTaskInCalendar(newTask) {
       },
       (err, event) => {
         if (err) {
-          console.log(err);
           return;
         }
       }
     );
   }
   catch(err) {
-    console.log(err);
   }
 
 }
@@ -74,7 +72,6 @@ function updateTaskInCalendar(id, updatedTask) {
     { calendarId: "primary", eventId: id, resource: calendarTask },
     (err) => {
       if (err) {
-        console.log(err);
         return;
       }
     }
@@ -84,7 +81,6 @@ function updateTaskInCalendar(id, updatedTask) {
 function deleteTaskInCalendar(taskID) {
   calendar.events.delete({ calendarId: "primary", eventId: taskID }, (err) => {
     if (err) {
-      console.log(err);
       return;
     }
   });
@@ -95,7 +91,6 @@ function getTaskInCalendar(taskID) {
     { calendarId: "primary", eventId: taskID },
     (err, res) => {
       if (err) {
-        console.log(err);
         return;
       }
     }

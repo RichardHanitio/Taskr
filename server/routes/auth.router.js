@@ -3,18 +3,19 @@ require("dotenv").config();
 const express = require("express");
 const authRouter = express.Router();
 const passport = require("passport");
+const jwt = require("jsonwebtoken")
+
 const {oAuth2Client} = require("../calendar");
 const {getToken} = require("../token");
 
-
-async function setCredentials(email) {
-  const token = await getToken(email);
-  if(!token) {
+async function setCredentials(tokens) {
+  const {accessToken, refreshToken} = tokens;
+  if(!(accessToken || refreshToken)) {
     return;
   }
   oAuth2Client.setCredentials({
-    access_token : token.accessToken,
-    refresh_token : token.refreshToken,
+    access_token : accessToken,
+    refresh_token : refreshToken,
     scope: "https://www.googleapis.com/auth/calendar",
     access_type: 'offline',
   });
@@ -32,12 +33,24 @@ authRouter.get(
   "/google/callback",
 
   passport.authenticate("google", {
-    // successRedirect: `${process.env.CLIENT_URL}/calendar`,
     passReqToCallback: true
   }), async(req, res) => {
     try {
-      await setCredentials(req.user.emails[0].value)
+      const tokens = await getToken(req.user.emails[0].value)
+      const jwtToken = await new Promise((resolve, reject) => {
+        jwt.sign(
+          {accessToken: tokens.accessToken, refreshToken: tokens.refreshToken},
+          process.env.JWT,
+          (err, token) => {
+            if(err) reject(err);
+            else resolve(token);
+          }
+        )
+      })
+      res.cookie("token", jwtToken, {maxAge: 24 * 60 * 60 * 1000, httpOnly: true})
+      await setCredentials(tokens)
       res.redirect(`${process.env.CLIENT_URL}/calendar`)
+
     } catch (err) {
       console.log(err)
     }
@@ -46,7 +59,7 @@ authRouter.get(
 
 authRouter.get("/login/success", (req, res) => {
   if(req.user) {
-    return res.cookie("email", req.user.emails[0].value, {httpOnly: false, maxAge: 1000000000}).status(200).json({
+    return res.status(200).json({
       msg: "Login successful",
       user: req.user
     })

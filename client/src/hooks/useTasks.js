@@ -62,7 +62,7 @@ const useTasks = ({modalContent}) => {
     try {
       const resp = await httpClearArchivedTasks();
       getArchivedTasks();
-      modalContent("/assets/man-success.png", resp.data.msg);
+      modalContent("/assets/man-success.jpg", resp.data.msg);
     } catch (err) {
       modalContent("/assets/man-stress.png", err.response.data.error);
     }
@@ -72,7 +72,7 @@ const useTasks = ({modalContent}) => {
     try {
       const resp = await httpRestoreTask(taskId);
       getArchivedTasks();
-      modalContent("/assets/man-success.png", resp.data.msg);
+      modalContent("/assets/man-success.jpg", resp.data.msg);
     } catch (err) {
       modalContent("/assets/man-stress.png", err.response.data.error);
     }

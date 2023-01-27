@@ -1,16 +1,18 @@
 require("dotenv").config();
 
 const express = require("express");
-const app = express();
 const cors = require("cors");
-const tasksRouter = require("./routes/tasks.router");
-const authRouter = require("./routes/auth.router");
 const path = require("path");
 const helmet = require("helmet");
+const passport = require("passport");
+const jwt = require("jsonwebtoken")
+
+const app = express();
+const tasksRouter = require("./routes/tasks.router");
+const authRouter = require("./routes/auth.router");
 const cookieSession = require("cookie-session");
 const cookieParser = require("cookie-parser");
 const passportSetup = require("./passport")
-const passport = require("passport");
 const {setCredentials} = require("./routes/auth.router");
 
 
@@ -54,23 +56,22 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(
   async(req, res, next) => {
     try {
-      console.log("called setcredentials")
-      // const userEmail = req.user.emails[0].value ? req.user.emails[0].value : req.cookies.email;
-      // console.log(req.user.emails[0].value)
-      console.log(req.cookies.email)
-      setCredentials(req.cookies.email)
+      // check if there's token cookie
+      if(req.cookies.token) {
+        jwt.verify(req.cookies.token, process.env.JWT, (err, decoded) => {
+          const {iat, ...tokens} = decoded;
+          setCredentials(tokens)
+        })
+      }
     } catch (err) {
-      console.log(err)
     }
     next()
   }
 )
 
-
 // Routers
 app.use("/api/v1/tasks", tasksRouter);
 app.use("/auth", authRouter);
-
 
 // Frontend Router
 // app.get("/*", (req, res) => {

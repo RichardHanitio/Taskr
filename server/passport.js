@@ -31,14 +31,6 @@ passport.deserializeUser((user, done) => {
 });
 
 async function verifyCallback(accessToken, refreshToken, profile, done) {
-  // const tokens = {
-  //   accessToken : accessToken,
-  //   refreshToken : refreshToken,
-  // }
-
-  // fs.writeFile("token.json", JSON.stringify(tokens), {encoding: "utf8", flag: "w"}, (err) => console.log(err))
-
-  console.log(profile.emails[0].value)
   await saveToken(profile.emails[0].value, accessToken, refreshToken)
 
   done(null, profile);

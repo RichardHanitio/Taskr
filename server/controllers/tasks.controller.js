@@ -50,7 +50,6 @@ const restoreArchivedTask = async(req, res) => {
     }
 
     // set di calendar
-
     createTaskInCalendar(task);
 
     res.status(200).json({msg: "Task restored successfully", task});
@@ -86,7 +85,6 @@ const getTask = async (req, res) => {
     const task = await Task.findOne({ _id: id });
     
     // get from calendar
-    console.log(req)
     getTaskInCalendar(id);
 
     if (!task) {
@@ -111,7 +109,6 @@ const updateTask = async (req, res) => {
 
     // kalau bukan di archive
     const updatedTask = req.body;
-    console.log("UPDATED TASK : ", updatedTask)
     if(!req.body.dateArchived) {
       
       // set in calendar
@@ -121,7 +118,6 @@ const updateTask = async (req, res) => {
     }
 
     // kalau di archive
-    console.log(updatedTask)
     deleteTaskInCalendar(id);
 
     return res.status(200).json({ msg: "Task archived successfully", task });

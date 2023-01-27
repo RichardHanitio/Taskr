@@ -7,10 +7,12 @@ const tasksRouter = require("./routes/tasks.router");
 const authRouter = require("./routes/auth.router");
 const path = require("path");
 const helmet = require("helmet");
-const passportSetup = require("./passport");
-const passport = require("passport");
 const cookieSession = require("cookie-session");
 const cookieParser = require("cookie-parser");
+const passportSetup = require("./passport")
+const passport = require("passport");
+const {setCredentials} = require("./routes/auth.router");
+
 
 // * for deployment purposes only
 // app.set("trust proxy", 1);
@@ -32,6 +34,7 @@ app.use(cors({
 // );
 
 app.use(helmet());
+app.use(passport.initialize());
 app.use(cookieParser());
 app.use(
   cookieSession({
@@ -45,10 +48,23 @@ app.use(
     // domain: "taskr-tasktracker.herokuapp.com",
   })
 );
-app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
+app.use(
+  async(req, res, next) => {
+    try {
+      console.log("called setcredentials")
+      // const userEmail = req.user.emails[0].value ? req.user.emails[0].value : req.cookies.email;
+      // console.log(req.user.emails[0].value)
+      console.log(req.cookies.email)
+      setCredentials(req.cookies.email)
+    } catch (err) {
+      console.log(err)
+    }
+    next()
+  }
+)
 
 
 // Routers
@@ -57,9 +73,8 @@ app.use("/auth", authRouter);
 
 
 // Frontend Router
-app.get("/*", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
-});
-
+// app.get("/*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "public", "index.html"));
+// });
 
 module.exports = app;

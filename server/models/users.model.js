@@ -1,12 +1,9 @@
-const mongoose = require("mongoose");
-require("mongoose-type-email");
+const mongoose = require("mongoose")
 
 const userSchema = new mongoose.Schema({
-  email: {
-    type: mongoose.SchemaTypes.Email,
-    required: true,
-  },
-  tasks: [{ type: mongoose.SchemaTypes.ObjectId, ref: "Tasks" }],
-});
+  email: String,
+  accessToken: String, 
+  refreshToken: String,
+})
 
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model("User", userSchema)

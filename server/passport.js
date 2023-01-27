@@ -1,8 +1,9 @@
 require("dotenv").config();
 
-const { Strategy:GoogleStrategy } = require("passport-google-oauth20");
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const passport = require("passport");
-const fs = require("fs");
+// const fs = require("fs");
+const {saveToken} = require("./token")
 
 const config = {
   CLIENT_ID: process.env.CLIENT_ID,
@@ -29,13 +30,16 @@ passport.deserializeUser((user, done) => {
   done(null, user);
 });
 
-function verifyCallback(accessToken, refreshToken, profile, done) {
-  const tokens = {
-    accessToken : accessToken,
-    refreshToken : refreshToken,
-  }
+async function verifyCallback(accessToken, refreshToken, profile, done) {
+  // const tokens = {
+  //   accessToken : accessToken,
+  //   refreshToken : refreshToken,
+  // }
 
-  fs.writeFile("token.json", JSON.stringify(tokens), {encoding: "utf8", flag: "w"}, (err) => console.log(err))
+  // fs.writeFile("token.json", JSON.stringify(tokens), {encoding: "utf8", flag: "w"}, (err) => console.log(err))
+
+  console.log(profile.emails[0].value)
+  await saveToken(profile.emails[0].value, accessToken, refreshToken)
 
   done(null, profile);
 }

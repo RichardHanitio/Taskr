@@ -1,11 +1,6 @@
 require("dotenv").config();
 const { google } = require("googleapis");
 const { OAuth2 } = google.auth;
-const fs = require("fs");
-const path = require("path");
-const process = require("process");
-
-const TOKEN_PATH = path.join(process.cwd(), "token.json")
 
 const config = {
   CLIENT_ID: process.env.CLIENT_ID,
@@ -22,15 +17,9 @@ const oAuth2Client = new OAuth2(
   "/auth/google/callback",
 );
 
-oAuth2Client.setCredentials({
-  access_token: JSON.parse(fs.readFileSync(TOKEN_PATH)).accessToken,
-  refresh_token: JSON.parse(fs.readFileSync(TOKEN_PATH)).refreshToken,
-  scope: "https://www.googleapis.com/auth/calendar",
-  access_type: 'offline',
-  expiry_date: '1469787756005'
-});
-
 const calendar = google.calendar({ version: "v3", auth: oAuth2Client });
 
-
-module.exports = calendar;
+module.exports = {
+  calendar,
+  oAuth2Client
+};

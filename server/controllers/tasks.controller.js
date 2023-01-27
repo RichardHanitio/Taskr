@@ -50,6 +50,7 @@ const restoreArchivedTask = async(req, res) => {
     }
 
     // set di calendar
+
     createTaskInCalendar(task);
 
     res.status(200).json({msg: "Task restored successfully", task});
@@ -71,10 +72,7 @@ const createTask = async (req, res) => {
     });
 
     // set in calendar
-    // console.log(req.user)
-    // if(req.isAuthenticated() && req.user) {
-      createTaskInCalendar(newTask);
-    // }
+    createTaskInCalendar(newTask);
 
     res.status(201).json({ msg: "Task created successfully", newTask });
   } catch (err) {
@@ -88,6 +86,7 @@ const getTask = async (req, res) => {
     const task = await Task.findOne({ _id: id });
     
     // get from calendar
+    console.log(req)
     getTaskInCalendar(id);
 
     if (!task) {
@@ -112,16 +111,18 @@ const updateTask = async (req, res) => {
 
     // kalau bukan di archive
     const updatedTask = req.body;
+    console.log("UPDATED TASK : ", updatedTask)
     if(!req.body.dateArchived) {
       
       // set in calendar
-      updateTaskInCalendar(updatedTask);
+      updateTaskInCalendar(id, updatedTask);
       
       return res.status(200).json({ msg: "Task updated successfully", task });
     }
 
     // kalau di archive
-    deleteTaskInCalendar(updatedTask);
+    console.log(updatedTask)
+    deleteTaskInCalendar(id);
 
     return res.status(200).json({ msg: "Task archived successfully", task });
 

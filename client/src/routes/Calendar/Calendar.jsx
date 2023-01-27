@@ -79,7 +79,6 @@ const Calendar = () => {
     return (
       <section className="calendar-section">
         <Navbar />
-        {console.log(user)}
         <iframe
           src={`https://calendar.google.com/calendar/embed?src=${user.replace('@', "%40")}&ctz=Asia%2FJakarta`}
           title="myCalendar"

@@ -1,4 +1,4 @@
-const calendar = require("../calendar");
+const {calendar} = require("../calendar");
 
 const colorCode = new Map([
   ["high", "11"],
@@ -54,7 +54,7 @@ function createTaskInCalendar(newTask) {
 
 }
 
-function updateTaskInCalendar(updatedTask) {
+function updateTaskInCalendar(id, updatedTask) {
   const { task: taskName, desc, dueDate, priority } = updatedTask;
   let calendarTask = {
     summary: taskName,

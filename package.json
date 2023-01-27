@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npm run test --prefix server && npm npm run test --prefix client",
+    "test": "npm run test --prefix server && npm run test --prefix client",
     "install-server": "npm install --prefix server",
     "install-client": "npm install --prefix client",
     "install": "npm run install-server && npm run install-client",
@@ -12,7 +12,7 @@
     "client": "npm start --prefix client",
     "watch": "concurrently \"npm run server\" \"npm run client\"",
     "startDev": "npm start --prefix server",
-    "deploy": "npm run build --prefix client && npm run startDev",
+    "deploy": "npm run client && npm run startDev",
     "start": "pm2-runtime start ecosystem.config.js --env production"
   },
   "repository": {

@@ -12,7 +12,7 @@
     "client": "npm start --prefix client",
     "watch": "concurrently \"npm run server\" \"npm run client\"",
     "startDev": "npm start --prefix server",
-    "deploy": "npm run client & npm run startDev",
+    "deploy": "npm run build --prefix client & npm run startDev",
     "start": "pm2-runtime start ecosystem.config.js --env production"
   },
   "repository": {
@@ -32,6 +32,7 @@
     "crypto": "^1.0.1",
     "dotenv": "^16.0.2",
     "helmet": "^6.0.0",
+    "netlify-lambda": "^2.0.15",
     "pm2": "^5.2.0"
   }
 }

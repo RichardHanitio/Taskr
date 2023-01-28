@@ -26,7 +26,7 @@ app.set("trust proxy", 1);
 //   credentials: true,
 // }));
 
-// * for deployement purposes only
+// * for deployment purposes only
 app.use(
   cors({
     origin: "https://taskr-tasktracker.netlify.com",
@@ -52,7 +52,7 @@ app.use(
 );
 app.use(passport.session());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "public")));
+// app.use(express.static(path.join(__dirname, "public")));
 app.use(
   async(req, res, next) => {
     try {
@@ -74,8 +74,12 @@ app.use("/api/v1/tasks", tasksRouter);
 app.use("/auth", authRouter);
 
 // Frontend Router
-app.get("/*", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
-});
+// app.get("/*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "public", "index.html"));
+// });
+
+app.get("/api/v1/welcome", (req, res) => {
+  res.send("Welcome to Taskr API")
+})
 
 module.exports = app;

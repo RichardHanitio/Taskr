@@ -12,7 +12,7 @@
     "client": "npm start --prefix client",
     "watch": "concurrently \"npm run server\" \"npm run client\"",
     "startDev": "npm start --prefix server",
-    "deploy": "npm run client && npm run startDev",
+    "deploy": "npm run client & npm run startDev",
     "start": "pm2-runtime start ecosystem.config.js --env production"
   },
   "repository": {

@@ -78,7 +78,7 @@ app.use("/auth", authRouter);
 //   res.sendFile(path.join(__dirname, "public", "index.html"));
 // });
 
-app.get("/api/v1/welcome", (req, res) => {
+app.get("/", (req, res) => {
   res.send("Welcome to Taskr API")
 })
 

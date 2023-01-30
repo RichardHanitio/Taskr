@@ -13,10 +13,10 @@ const AUTH_OPTIONS = {
   clientID: config.CLIENT_ID,
   clientSecret: config.CLIENT_SECRET,
   // * for deployment purposes only
-  callbackURL: "https://taskr-tasktracker.netlify.com/auth/google/callback",
+  // callbackURL: "https://taskr-tasktracker.netlify.com/auth/google/callback",
 
   // * for development purposes only
-  // callbackURL: "/auth/google/callback",
+  callbackURL: "/auth/google/callback",
 };
 
 passport.use(new GoogleStrategy(AUTH_OPTIONS, verifyCallback));

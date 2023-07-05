@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node server/server.js",
-    "build": "cd client && npm run build",
-    "predeploy": "npm run build",
-    "deploy": "cd client && gh-pages -d build"
+    "start": "npm start --prefix server",
+    "build": "npm run build --prefix client",
+    "predeploy": "npm run build --prefix client && npm start --prefix server",
+    "deploy": "gh-pages -d build"
   },
   "repository": {
     "type": "git",

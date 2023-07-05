@@ -52,7 +52,7 @@ app.use(
 );
 app.use(passport.session());
 app.use(express.json());
-// app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "public")));
 app.use(
   async(req, res, next) => {
     try {
@@ -74,12 +74,12 @@ app.use("/api/v1/tasks", tasksRouter);
 app.use("/auth", authRouter);
 
 // Frontend Router
-// app.get("/*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "public", "index.html"));
-// });
+app.get("/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
 
-app.get("/", (req, res) => {
-  res.send("Welcome to Taskr API")
-})
+// app.get("/", (req, res) => {
+//   res.send("Welcome to Taskr API")
+// })
 
 module.exports = app;

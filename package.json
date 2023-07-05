@@ -4,16 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npm run test --prefix server && npm run test --prefix client",
-    "install-server": "npm install --prefix server",
-    "install-client": "npm install --prefix client",
-    "install": "npm run install-server && npm run install-client",
-    "server": "npm run watch --prefix server",
-    "client": "npm start --prefix client",
-    "watch": "concurrently \"npm run server\" \"npm run client\"",
-    "startDev": "npm start --prefix server",
-    "deploy": "npm run build --prefix client & npm run startDev",
-    "start": "pm2-runtime start ecosystem.config.js --env production"
+    "start": "node server/server.js",
+    "build": "cd client && npm run build",
+    "predeploy": "npm run build",
+    "deploy": "cd client && gh-pages -d build"
   },
   "repository": {
     "type": "git",
@@ -25,7 +19,7 @@
   "bugs": {
     "url": "https://github.com/RichardHanitio/Taskr/issues"
   },
-  "homepage": "https://github.com/RichardHanitio/Taskr#readme",
+  "homepage": "https://richardhanitio.github.com/Taskr",
   "dependencies": {
     "@react-oauth/google": "^0.2.8",
     "concurrently": "^7.4.0",
@@ -34,5 +28,8 @@
     "helmet": "^6.0.0",
     "netlify-lambda": "^2.0.15",
     "pm2": "^5.2.0"
+  },
+  "devDependencies": {
+    "gh-pages": "^5.0.0"
   }
 }
